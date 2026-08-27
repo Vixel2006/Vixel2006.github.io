@@ -6,7 +6,7 @@
     <atom:link href="https://vixel2006.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Machines, systems, and ideas. A lab notebook of robotics middleware, deep learning runtimes, world models and embedded electronics.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Aug 2026 15:18:07 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 15:35:46 GMT</lastBuildDate>
     <item>
       <title>Why I fell in love with Zig</title>
       <link>https://vixel2006.github.io/blog/#/writing/2026-08-27-zig</link>
