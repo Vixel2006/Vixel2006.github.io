@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ao.L === region.av.L)
+	if (region.ak.L === region.au.L)
 	{
-		return 'on line ' + region.ao.L;
+		return 'on line ' + region.ak.L;
 	}
-	return 'on lines ' + region.ao.L + ' through ' + region.av.L;
+	return 'on lines ' + region.ak.L + ' through ' + region.au.L;
 }
 
 
@@ -2728,8 +2728,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		y: func(record.y),
-		ap: record.ap,
-		ak: record.ak
+		al: record.al,
+		af: record.af
 	}
 });
 
@@ -2998,10 +2998,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.y;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ap;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.al;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.ak) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.af) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3991,7 +3991,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 		impl.bB,
 		impl.bx,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.am && impl.am(sendToApp)
+			var divertHrefToApp = impl.ah && impl.ah(sendToApp)
 			var view = impl.bD;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -4066,7 +4066,7 @@ function _Browser_application(impl)
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		am: function(sendToApp)
+		ah: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4082,9 +4082,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.aL === next.aL
-							&& curr.az === next.az
-							&& curr.aI.a === next.aI.a
+							&& curr.aK === next.aK
+							&& curr.ay === next.ay
+							&& curr.aH.a === next.aH.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4255,12 +4255,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aO: _Browser_getScene(),
+		aN: _Browser_getScene(),
 		aV: {
 			aX: _Browser_window.pageXOffset,
 			aY: _Browser_window.pageYOffset,
 			aW: _Browser_doc.documentElement.clientWidth,
-			ay: _Browser_doc.documentElement.clientHeight
+			ax: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4271,7 +4271,7 @@ function _Browser_getScene()
 	var elem = _Browser_doc.documentElement;
 	return {
 		aW: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		ay: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		ax: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4294,15 +4294,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aO: {
+			aN: {
 				aW: node.scrollWidth,
-				ay: node.scrollHeight
+				ax: node.scrollHeight
 			},
 			aV: {
 				aX: node.scrollLeft,
 				aY: node.scrollTop,
 				aW: node.clientWidth,
-				ay: node.clientHeight
+				ax: node.clientHeight
 			}
 		};
 	});
@@ -4332,18 +4332,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aO: _Browser_getScene(),
+			aN: _Browser_getScene(),
 			aV: {
 				aX: x,
 				aY: y,
 				aW: _Browser_doc.documentElement.clientWidth,
-				ay: _Browser_doc.documentElement.clientHeight
+				ax: _Browser_doc.documentElement.clientHeight
 			},
 			a3: {
 				aX: x + rect.left,
 				aY: y + rect.top,
 				aW: rect.width,
-				ay: rect.height
+				ax: rect.height
 			}
 		};
 	});
@@ -4971,7 +4971,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {a6: fragment, az: host, aG: path, aI: port_, aL: protocol, bs: query};
+		return {a6: fragment, ay: host, aF: path, aH: port_, aK: protocol, bs: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5307,51 +5307,17 @@ var $elm$core$List$head = function (list) {
 	}
 };
 var $elm$core$Basics$neq = _Utils_notEqual;
-var $author$project$Content$Posts$plastPost = '# Re-designing Plast for more elegant solution\u000A\u000AOver the last couple of weeks I have been working on my robotics communication framework in Zig. I finalized the core for the first version that I will publish, so I thought it\u0027s a good time to go work on something else for a couple of days so I don\u0027t burn out — the project was starting to feel boring. I\u0027m very interested in Physical AI and robotics, so I decided to go back to `plast`, which is my simple deep learning framework written in `c` and `cuda`. I already implemented the cpu and gpu kernels for most of the tensor ops needed, built a tiny `JIT` compiler for it, and made python bindings so people can use it with an experiment tracking system. But there is something else. As someone interested in physical AI and robotics, this library is useless to me without the ability to do reinforcement learning with ease.\u000A\u000A## Why rewrite in Zig?\u000A\u000AI think this shouldn\u0027t be a shocker by now. I invested a good amount of time learning and writing Zig, and built glu from scratch in pure Zig. To be honest, writing python code for robots is not ideal — you don\u0027t get much control over your resources. And writing the api in c is not the most enjoyable experience you can get. So re-writing the core in Zig is a win. It\u0027s a good mixture of both worlds: I still have fine-grained control over hardware resources, and I get a decent api that is enjoyable to work with.\u000A\u000A\u0022But rewriting a full deep learning framework from scratch seems like a premature decision that will take too much time.\u0022 I figured you might ask that. And maybe you\u0027d be correct. But the project wasn\u0027t that big. Running `cloc . --exclude-content=kernels/ --exclude-lang=zig` on my `src/` folder gives me this:\u000A\u000A```\u000A-------------------------------------------------------------------------------\u000ALanguage                     files          blank        comment           code\u000A-------------------------------------------------------------------------------\u000AC                               11            122             12            755\u000AC++                              1             37              9            294\u000ACUDA                             6             30              7            181\u000A-------------------------------------------------------------------------------\u000ASUM:                            18            189             28           1230\u000A-------------------------------------------------------------------------------\u000A```\u000A\u000AMost of the code lives in the `kernels/` folder with the `c` and `cuda` kernels. The project wasn\u0027t that large after all. So I decided to re-write the core in Zig, keep the kernels, and just use the `extern` keyword to link them in the build system. Same kernels, no re-write, but now the system is in a language I can actually enjoy working with. Win-win.\u000A\u000A## The problem with hand-written kernels\u000A\u000AThe approach I\u0027m using right now is hand-writing every single kernel for every operation. This is not ideal. First, it means too much code. In `c` that means writing optimized kernels for every data type. When writing `cuda` kernels, the execution configuration alone can make or break performance. And one of the most important optimization techniques in ML compilers — kernel fusion — becomes a nightmare of combinatorial explosion.\u000A\u000AKernel fusion is about writing a single kernel that composes multiple operations together. Take the most used `nn` layer in deep learning: `Linear`, which is basically `input @ weight.T + bias`. Why load `input` and `weights` from memory, do matmul, store the output, then load that result back to add `bias`, then store again? If you have been paying attention (congrats for not being brain-rotted) you\u0027ll notice we just did `(4) loads` and `(2) stores` across two separate function frames with jump operations in between. That shit is a performance killer.\u000A\u000AWith kernel fusion we write a single `matmul_add` kernel: matmul then add in the same frame. No jump ops. In this version we do `(3) loads` and `(1) store`. We saved one load and one store, which is significant because loads and stores are the most expensive operations in computer hardware.\u000A\u000AWith hand-written kernels we would need to write every fused variant separately, and all of them need to be exported to Zig. Plus the code is ugly. Look at this:\u000A\u000A```cuda\u000A__global__ void add_kernel_float_contig(const float *a, const float *b, float *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] + b[tid];\u000A    }\u000A}\u000A\u000A__global__ void add_kernel_int_contig(const int *a, const int *b, int *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] + b[tid];\u000A    }\u000A}\u000A\u000A__global__ void sub_kernel_float_contig(const float *a, const float *b, float *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] - b[tid];\u000A    }\u000A}\u000A\u000A__global__ void sub_kernel_int_contig(const int *a, const int *b, int *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] - b[tid];\u000A    }\u000A}\u000A\u000A\u000A__global__ void mul_kernel_float_contig(const float *a, const float *b, float *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] * b[tid];\u000A    }\u000A}\u000A\u000A__global__ void mul_kernel_int_contig(const int *a, const int *b, int *c, int num_elements) {\u000A    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A\u000A    if (tid < num_elements) {\u000A        c[tid] = a[tid] * b[tid];\u000A    }\u000A}\u000A```\u000A\u000AAnd this is only for two data types, without even considering noncontiguous data layouts from slicing and movement ops like `broadcast` and `expand`.\u000A\u000A## Codegen to the rescue\u000A\u000AAs a big fan of geohot, I was very interested in studying how tinygrad works. Tinygrad has a similar philosophy to `tvm`. Here\u0027s how `tvm` works: it captures the computation graph, lowers it to an `IR` representation, optimizes it with `MLIR`, and executes the optimized graph.\u000A\u000ATinygrad doesn\u0027t work exactly the same way, but the philosophy is similar. Instead of hand-writing every kernel — which is what I\u0027m doing in plast — it has a `codegen` module. This module uses the `UOp` datatype to write kernels at runtime as needed. Using something called a `Linearizer`, it tries different optimization techniques like loop unrolling and shared memory usage on cuda, launches kernels with different configurations, and uses Beam Search to pick the fastest one.\u000A\u000AYou might think \u0022this is very slow\u0022. You\u0027re not completely right, but you\u0027re not completely wrong either. It\u0027s slower on the first batch because it has to build the graph and write the optimized kernels. But with a JIT compiler we cache the resulting graph and kernels, so every subsequent batch uses them directly. This gives us a highly optimized graph without writing a kernel for every single combination of constraints.\u000A\u000ANow let\u0027s look at how to generate all those ugly kernels from the previous section on the fly:\u000A\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000Apub const DataType = enum {\u000A    float,\u000A    int,\u000A\u000A    pub fn toCudaTypeString(self: DataType) []const u8 {\u000A        return switch (self) {\u000A            .float => \u0022float\u0022,\u000A            .int => \u0022int\u0022,\u000A        };\u000A    }\u000A};\u000A\u000Apub const OpType = enum {\u000A    add,\u000A    sub,\u000A    mul,\u000A\u000A    pub fn toChar(self: OpType) u8 {\u000A        return switch (self) {\u000A            .add => \u0027+\u0027,\u000A            .sub => \u0027-\u0027,\u000A            .mul => \u0027*\u0027,\u000A        };\u000A    }\u000A};\u000A\u000Apub const Op = struct {\u000A    op_type: OpType,\u000A    data_type: DataType,\u000A\u000A    pub fn generateKernel(self: Op, allocator: std.mem.Allocator) ![]const u8 {\u000A        const op_name = @tagName(self.op_type);\u000A        const type_name = @tagName(self.data_type);\u000A        const type_c_str = self.data_type.toCudaTypeString();\u000A        const op_char = self.op_type.toChar();\u000A\u000A        const template =\u000A            \u005C\u005C\u005C\u005C__global__ void {s}_kernel_{s}_contig(const {s} *a, const {s} *b, {s} *c, int num_elements) {{\u000A            \u005C\u005C\u005C\u005C    int tid = blockDim.x * blockIdx.x + threadIdx.x;\u000A            \u005C\u005C\u005C\u005C\u000A            \u005C\u005C\u005C\u005C    if (tid < num_elements) {{\u000A            \u005C\u005C\u005C\u005C        c[tid] = a[tid] {c} b[tid];\u000A            \u005C\u005C\u005C\u005C    }}\u000A            \u005C\u005C\u005C\u005C}}\u000A            \u005C\u005C\u005C\u005C\u000A        ;\u000A\u000A        return try std.fmt.allocPrint(allocator, template, .{\u000A            op_name,\u000A            type_name,\u000A            type_c_str,\u000A            type_c_str,\u000A            type_c_str,\u000A            op_char,\u000A        });\u000A    }\u000A};\u000A```\u000A\u000AWith this we can generate kernels for any data type we want. With the right implementation, generating optimized kernels becomes elegant and maintainable instead of a copy-paste factory. That\u0027s why I think codegen is a much better approach than hand-written kernels.\u000A\u000A## What\u0027s next for Plast\u000A\u000ASo where does this leave us? The plan is coming together: rewrite the core in Zig, keep the existing kernels, build a codegen module to replace the kernel copy-paste nightmare, wire it all into the JIT compiler, and finally — finally — have a framework I can actually use for reinforcement learning without wanting to throw my laptop out the window.\u000A\u000ARight now I\u0027m working on the Zig core and the codegen module in parallel. The kernels are already done and battle-tested from the C version, so that part is essentially free — just link and go. Once the codegen is mature enough to handle the full set of elementwise ops, I\u0027ll start fuzzing it against the hand-written kernels to make sure we don\u0027t regress on correctness or performance. After that, the hand-written versions go in the trash where they belong.\u000A\u000AI don\u0027t know when the first version will be ready. Could be weeks, could be months. But for the first time this project actually feels fun again, and that\u0027s worth more than any release date.';
-var $author$project$Content$Posts$readCodePost = '# I read the code.\u000A\u000A## The tweet\u000A\u000A\u0022I read the code.\u0022 is a tweet posted by Mitchell Hashimoto, the creator of Ghostty and co-founder of HashiCorp. It started a debate over the internet about whether people should read the slop generated by AI coding agents or not.\u000A\u000AFirst of all, I\u0027m not going to address the dumb \u0022AI as a compiler\u0022 take. The only thing you get out of this argument is knowing the person saying it doesn\u0027t know shit about compilers or LLMs. If you\u0027re willing to spread shitty arguments without understanding the technology, get the fuck out of tech and find something you\u0027re actually willing to learn.\u000A\u000A## When AI works without reading\u000A\u000AYou have a trivial app you use for yourself a couple times and you don\u0027t care how it works. You\u0027re not going to maintain or scale it. Here the AI is perfect. It just gives you what you want in very little time. Big win.\u000A\u000A## The zero-dependency trap\u000A\u000ASo I\u0027ve been thinking a lot about the role of AI in programming, and there are a lot of ideas. But here\u0027s an interesting hypothesis. Say we use AI coding agents to make our code zero-dependency. Sounds nice, huh? The AI builds you the helpers or the low-level stuff you don\u0027t understand and exposes a simple API. It\u0027s like importing a third-party library without actually adding a dependency. And zero-dependency code is great, right? It lets you work on projects out of your league right now. But in fact it\u0027s very bad. Using a third-party library is actually better than going zero-dep. What? How? I\u0027ll tell you.\u000A\u000AWe don\u0027t really think about this when we use a third-party dependency, but when we do, we\u0027re implicitly trusting the maintainers to keep it working with good performance. You don\u0027t need to care about the library. It\u0027s all trust.\u000A\u000AWith AI-generated code, the code is sitting in your codebase, which makes it officially your problem — not someone else\u0027s. So now you\u0027re implicitly trusting the AI agent to maintain this code and meet your application\u0027s functional and non-functional requirements. That\u0027s a real problem if you actually understand how AI works under the hood. And by now, it seems like the big majority are just pretending to know.\u000A\u000A## The 500K lines scenario\u000A\u000AHumans have been generating slop for decades. We write bad code with massive technical debt and abstractions that kill performance. So why is AI much different? Let me paint a scenario. You had AI author a non-trivial piece of software (I\u0027m too lazy to think of a specific example). You don\u0027t review any of it. You let the AI do whatever it wants. Now it\u0027s generated a 500K+ line codebase. Congrats, your code has users. Bug reports start coming in. Feature requests pile up. Maybe it\u0027s a SaaS and you need to scale. In this scenario you\u0027re completely fucked. Here\u0027s why.\u000A\u000ALet\u0027s start with what we can measure. Our biggest AI models have around 1M tokens of context window. Solid, right? But in our scenario you have 500K+ lines of code you know nothing about. You have a logical bug and you need to fix it. How? You go to an LLM, tell it \u0022solve this bug plsss.\u0022 It loads the whole codebase and burns through the entire context window looking for candidates in the over-engineered mess it created. It tries to debug. It fails — because it just exhausted most of its context tokens. 1M tokens is roughly 750K words depending on the tokenizer. It\u0027s trying to fit the codebase plus all its thinking into that. And yeah, I know you can use `AGENT.md`, `CLAUDE.md`, all those markdown files you read about on LinkedIn. The codebase is still too large.\u000A\u000AYou\u0027ll tell me: hahaha, you\u0027re dumb, \u0022solve this bug plsss.\u0022 is a stupid prompt, I can write a better one. And I\u0027ll tell you that as humans we also have context windows. AI mimics our intelligence. In this scenario you don\u0027t know shit about the codebase. You don\u0027t know how it\u0027s organized, where the code lives, how any of the logic works. You have zero context about the problem. And it\u0027s simple: if you don\u0027t understand the problem, you can\u0027t solve it. Just like that.\u000A\u000ANow if you were actually reading the code the AI generates, you\u0027d know where the bug likely is. You do some simple debugging, feed the LLM the relevant places, give it the debugging session results, and tell it the expected behaviour. It solves the problem with way fewer tokens. That means more money saved. If it solves your problem but costs way more than it should, that\u0027s not good after all.\u000A\u000A---\u000A\u000A## So will AI get better?\u000A\u000ALet\u0027s talk about if AI is actually going to get better — good enough that reading doesn\u0027t matter.\u000A\u000AFirst, the cost. You\u0027ll say: it solves everything, it\u0027ll get cheaper like all technology, right? I don\u0027t think AI is getting cheaper. Not with the current market conditions. Anthropic and OpenAI are consistently losing money because they underprice their model serving. Which means it should actually get more expensive. You\u0027ll say: but China\u0027s models are great. And I agree — long live open-source. But that doesn\u0027t really solve the problem. It\u0027s cheap now, but it\u0027s not going to get cheaper. It will only get more expensive. With each new SOTA, the param count grows. Kimi k2 just dropped with 2.8 TRILLION params. Insane.\u000A\u000AAnd these massive models don\u0027t just cost more in API tokens — they need more expensive hardware to run at all. More params means you need GPUs with way more VRAM, which cost a fortune and draw insane amounts of power. Running inference on a 2.8T param model is incredibly inefficient compared to a smaller, fine-tuned model that could do the same job. So even if the API is cheap today, the underlying economics make no sense at scale.\u000A\u000AAnd here is the thing: the companies building these models don\u0027t really have an incentive to make the AI generate less code. Less code means less tokens, and less tokens means less money. They are not going to optimize for conciseness when their business model is selling you tokens. So you\u0027re stuck paying for bloated, over-engineered solutions.\u000A\u000ASecond, the quality problem. AI is still generating over-engineered code with bad abstractions and patterns. You will find yourself in a codebase that could have been much smaller, more elegant. And it\u0027s not the LLMs\u0027 fault. They\u0027re trained on human code, and we generate bad code by definition. Good design isn\u0027t objective — you can\u0027t enforce it with a deterministic feedback loop. There\u0027s no reward signal for clean architecture.\u000A\u000AAnd the most active direction in AI research is architectural hacks to increase params and context window — not better foundational models that could actually change how language generation works. I\u0027m a huge believer in the world model architecture Yann LeCun introduced. But we still don\u0027t have evidence it will deliver here.\u000A\u000AThis should make it obvious. AI will let you down at some point. And at that moment, you\u0027ll have to figure it out yourself.\u000A\u000A## Your own slop is better than AI slop\u000A\u000AAt this point you don\u0027t have a fucking clue how anything works. So the velocity you gained getting to market? It essentially backfires. The time you saved? You\u0027re paying it back to refactor and understand the project.\u000A\u000ASo if I\u0027m a bad programmer who writes slop, at least it\u0027s my own slop. I understand it. I can operate within it. (If you\u0027re a web developer who uses TypeScript, you don\u0027t have the right to call anyone\u0027s code slop tbh.)';
-var $author$project$Content$Posts$saasPost = '# What I Learnt Building a SaaS (And Why the Startup Scene is Cancer)\u000A\u000AFor the past few months, I\u0027ve been building a SaaS project with some college mates. To be completely honest, I\u0027ve always found the modern SaaS scene incredibly stupid. Most projects look like absolute garbage to me—glorified AI wrappers attempting to solve problems that don\u0027t exist. Why would anyone need an \u0022AI Alarm Clock\u0022? Human beings are born with a free piece of technology called a biological clock. But hey, maybe the flagship humans are out of production, and the new economical models don\u0027t come with that feature built-in. Who am I to judge?\u000A\u000AActually, I will judge. The entire startup ecosystem is a disease. It\u0027s a playground where marketing, hype, and VC-pleasing buzzwords weigh infinitely more than the actual value or engineering quality of the solution. It\u0027s the natural result of late-stage capitalism: a system that doesn\u0027t care about creating things that are useful or elegant, but instead incentivizes grifters to build bloated, useless tools just to extract subscription fees.\u000A\u000AThis is the story of how we took a failed, hype-driven hackathon project, stripped away the AI bullshit, and built a real-time API security platform called Argos—along with what I learnt about code, useless people, and why the tech industry is broken.\u000A\u000A---\u000A\u000A## 1. The Hackathon Genesis: An AI SIEM Mirage\u000A\u000AThe journey started five months ago at a college hackathon. A teammate opened his phone, prompted ChatGPT (or Gemini, I can\u0027t remember), and immediately declared that our project would be a shiny \u0022AI SIEM Solution.\u0022 I\u0027ve always found conventional security analytics incredibly boring, but as the lead for Machine Learning and Backend Engineering, I had to look into how SIEMs actually function under the hood.\u000A\u000AI quickly realized we needed to pivot. Instead of post-incident log analysis (SIEM)—which is just looking at the ashes of your server after it already burned down—we needed real-time protection at the application layer. An inline API security solution.\u000A\u000ABecause of extreme time constraints—and the fact that I hadn\u0027t slept for three days straight—I wrote some of the worst code of my life. The initial architecture was an absolute disaster:\u000A\u000A```\u000A+------------------+      Unstructured JSON      +----------------------+\u000A| Inbound HTTP Req | --------------------------> |   Naive LLM Prompt   |\u000A+------------------+                             +----------------------+\u000A                                                            |\u000A                                                            v\u000A+------------------+       Massive Latency       +----------------------+\u000A|  Blocked / Pass  | <-------------------------- |  \u0022Retarded\u0022 SOC Bot  |\u000A+------------------+                             +----------------------+\u000A```\u000A\u000AThe pipeline took a raw JSON request, passed it wholesale to a massive LLM with a flimsy prompt, and asked it to act like a tier-one SOC analyst. No schema constraints, no input validation, and zero deterministic parsing. It was slow as hell, expensive as fuck, and completely impractical for real-world production traffic. It was the perfect representation of modern \u0022AI engineering\u0022—retarded, bloated, and useless.\u000A\u000AWhile waiting for the judges to inevitably smoke us during presentation day, the practical solution hit me. I thought about Stripe. They don\u0027t make you reroute your whole network through a slow proxy; they provide lightweight, native SDKs that drop right into your backend code to handle the heavy lifting.\u000A\u000A---\u000A\u000A## 2. The Architecture Shift: Go Backend & Decoupled SDKs\u000A\u000AWe got cooked at the hackathon, but the technical challenge stuck with me. Even though the business side of SaaS makes me sick, I thought building the actual engine would be a fun engineering exercise.\u000A\u000AI chose Go for the backend engine. I\u0027ve never been a pure backend engineer—building CRUD APIs doesn\u0027t give me the same rush as writing compilers, operating systems, or low-level systems infrastructure—but the team dynamics forced my hand. Out of a five-person team, only my close friend and I were actual builders. The other three were non-contributing passengers who did absolutely nothing but talk, show up to meetings, and repeat corporate jargon they probably read on LinkedIn.\u000A\u000ATo make the platform a reality without losing my mind, we had to build fast and bypass the dead weight.\u000A\u000AOur core architectural blueprint decoupled the application runtime from the detection cluster using language-specific middlewares (SDKs):\u000A\u000A```\u000A   User Request\u000A        |\u000A        v\u000A+---------------------------------------+\u000A| Your Web App Runtime (Node/Python/Go) |\u000A|                                       |\u000A|  +---------------------------------+  |\u000A|  |     Argos Middleware / SDK      |  |\u000A|  +---------------------------------+  |\u000A+---------------------------------------+\u000A        |\u000A        | Asynchronous / Synchronous Channel\u000A        v\u000A+---------------------------------------+\u000A|       Argos Go Detection Engine       |\u000A|                                       |\u000A|  [Regex] -> [Statistical] -> [ML/DL]  |\u000A+---------------------------------------+\u000A```\u000A\u000ATo standardize behavioral tracking and model training, we normalized all incoming HTTP metadata into a strictly typed, unified exchange format. Here is a conceptual look at how our lightweight SDK middleware intercepts, extracts, and dispatches payload telemetry without blocking the hot-path:\u000A\u000A```go\u000Apackage argos\u000A\u000Aimport (\u000A	\u0022bytes\u0022\u000A	\u0022io\u0022\u000A	\u0022net/netip\u0022\u000A	\u0022net/http\u0022\u000A	\u0022time\u0022\u000A)\u000A\u000Atype TelemetryPayload struct {\u000A	Method    string            `json:\u0022method\u0022`\u000A	Path      string            `json:\u0022path\u0022`\u000A	Headers   map[string]string `json:\u0022headers\u0022`\u000A	Body      string            `json:\u0022body\u0022`\u000A	RemoteIP  string            `json:\u0022remote_ip\u0022`\u000A	Timestamp int64             `json:\u0022timestamp\u0022`\u000A}\u000A\u000Afunc ArgosMiddleware(client *ArgosClusterClient) func(http.Handler) http.Handler {\u000A	return func(next http.Handler) http.Handler {\u000A		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\u000A			var bodyBytes []byte\u000A			if r.Body != nil {\u000A				bodyBytes, _ = io.ReadAll(r.Body)\u000A				r.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))\u000A			}\u000A\u000A			payload := TelemetryPayload{\u000A				Method:    r.Method,\u000A				Path:      r.URL.Path,\u000A				Headers:   extractHeaders(r.Header),\u000A				Body:      string(bodyBytes),\u000A				RemoteIP:  r.RemoteAddr,\u000A				Timestamp: time.Now().UnixNano(),\u000A			}\u000A\u000A			// Run in a goroutine to avoid blocking the main request thread\u000A			go client.Analyze(payload)\u000A\u000A			next.ServeHTTP(w, r)\u000A		})\u000A	}\u000A}\u000A```\u000A\u000A---\u000A\u000A## 3. Optimizing the Pipeline: Mechanical Pentesting\u000A\u000ADuring my university final exams, I needed a productive way to procrastinate. Instead of studying legacy rendering hooks for my Computer Graphics course, I started learning web application penetration testing.\u000A\u000AI quickly realized something critical: Web pentesting is deeply mechanical. When an attacker or an automated scanner maps an API, they systematically spray known, highly predictable structural patterns against your endpoints to check for vulnerabilities (SQLi, XSS, Path Traversal).\u000A\u000AIf you can catch those mechanical trials on the ultra-fast hot path using a strict cascade of deterministic filters, you don\u0027t need a heavy deep learning model or a slow LLM for standard exploitation attempts.\u000A\u000A### The Multi-Tier Inspection Stack\u000A\u000AWe threw the single, slow LLM bottleneck in the trash and built a multi-tier pipeline:\u000A\u000A1. **Deterministic Filter (Regex & Tokenizer)**: Instantly drops obvious, raw signatures (e.g., `\u0027 OR 1=1 --`, `<script>`).\u000A2. **Statistical Analyzer**: Evaluates entropy variations, character distribution shifts, and structural anomalies in the payload lengths.\u000A3. **Machine Learning / Deep Learning Module**: Processes deep contextual threats only when the first two layers raise suspicion flags.\u000A\u000A```\u000AIncoming Payload\u000A      |\u000A      v\u000A  +----------------------------------+\u000A  | Tier 1: Deterministic Regex/Tok  | ---> [Signature Match] -> Immediate IP Block\u000A  +----------------------------------+\u000A      | Clean\u000A      v\u000A  +----------------------------------+\u000A  | Tier 2: Statistical Entropy      | ---> [Anomalous Deviation] -> Trigger ML/DL\u000A  +----------------------------------+\u000A      | Clean\u000A      v\u000A  +----------------------------------+\u000A  | Tier 3: Contextual ML/DL Models  | ---> [Malicious Intent] -> Action & Flag\u000A  +----------------------------------+\u000A```\u000A\u000ABy instantly dropping an automated firewall block on the attacker\u0027s IP the moment a mechanical signature is hit, we break the attacker\u0027s feedback loop. If a malicious actor has to rotate their proxy or IP address after every single exploit variation, the cost of attack skyrockets, and they move on.\u000A\u000A---\u000A\u000A## 4. What I Learnt (The Hard Way)\u000A\u000A**Capitalism is the Cancer of Software**:\u000AAs a developer, I love pure engineering, solving complex algorithmic bottlenecks, and writing clean, minimal code. But in our capitalistic society, none of that matters. Capitalism does not reward good engineering; it rewards marketing grift. A bulletproof software engine is useless in the market if you cannot write slick copy, buy ads, and convince corporate managers to buy it. This is why I absolutely despise the startup scene. It forces talented builders to stop building and start selling, converting engineering passion into corporate marketing noise.\u000A\u000A**Most People Just Want a Free Ride**:\u000AYou will quickly learn that most people suck. In group projects, hackathons, and startups, you will always find passengers—people who want the title, the equity, and the glory, but won\u0027t write a single line of code. They will spend hours talking about \u0022strategy\u0022 and \u0022positioning\u0022 to cover up the fact that they have zero technical skills. Build exclusively with active creators, protect your peace, and kick the dead weight out early. As Drake put it in *Fair Trade*:\u000A\u000A> \u0022I\u0027ve been losing friends and finding peace, honestly that sounds like a fair trade to me.\u0022\u000A\u000A**Backend is Fine, but It\u0027s Not Compilers**:\u000AGo is a highly concurrent, practical language for processing request streams, but backend development still lacks the intellectual beauty of compiler design or low-level systems. At the end of the day, building a SaaS often feels like assembling pre-existing puzzle pieces. But if you have to do it, at least do it without the typical corporate bloat.\u000A\u000A---\u000A\u000A## The Reality of the Roadmap\u000A\u000AThe platform is live at [argossecops.com](https://argossecops.com). We are using an open-core model, keeping our core high-concurrency detection engine proprietary while open-sourcing our client SDKs.\u000A\u000AIs it a revolutionary breakthrough in computer science? No. At its core, it\u0027s just a fast, clean, multi-tiered firewall and detection system. But unlike the bloated, VC-backed \u0022AI security\u0022 garbage polluting the internet today, it actually works, it doesn\u0027t kill your request latency, and it doesn\u0027t feed your sensitive data to OpenAI.\u000A\u000AIf you\u0027re a developer who cares about performance and wants to secure your APIs without adopting 200MB of dependencies and a slow AI proxy, check it out. Or don\u0027t. At least the code is clean.';
-var $author$project$Content$Posts$zigPost = '# Why I fell in love with Zig\u000A\u000AOver the last couple of weeks, I set out to learn Zig. I went into it assuming it would be just another bloated piece of software weighed down by too many layers of abstraction—the kind that makes a language more complex instead of making development easier.\u000A\u000AThe last language that gave me that headache was Rust. Don\u0027t get me wrong, Rust\u0027s ownership model for managing memory is clever. But for me, it\u0027s just not worth dealing with all the unnecessary complexity Rust forces on you while you work. To put it simply: Rust is just not fun to write or read.\u000A\u000ASome people will claim Rust is more fun than a language like Go because Go is \u0022too repetitive\u0022, or something like that, and my only response to that is: \u0022go work on real problems, bro.\u0022 as the fun, creative thinking should be spent solving the actual problem at hand—not fighting the language\u0027s syntax or trying to figure out which hyper-abstract concept you need to implement basic logic.\u000A\u000ASo, what makes Zig so great, besides its simplicity?\u000A\u000A---\u000A\u000A## comptime\u000A\u000A`comptime` is absolutely incredible. It is a massive upgrade over C/C++ macros and Rust\u0027s `proc_macro`. It is so intuitive and easy to use because it flows naturally with the rest of the program.\u000A\u000A### C Approach: Preprocessor Magic\u000A```c\u000A#include <stdio.h>\u000A#include <stdbool.h>\u000A\u000A// The \u0022Macro Template\u0022\u000A#define DECLARE_STACK(Type, Name, Capacity) \u005C\u005C\u000A    typedef struct { \u005C\u005C\u000A        Type data[Capacity]; \u005C\u005C\u000A        size_t top; \u005C\u005C\u000A    } Name; \u005C\u005C\u000A    \u005C\u005C\u000A    static inline void Name##_push(Name* s, Type item) { \u005C\u005C\u000A        if (s->top < Capacity) { \u005C\u005C\u000A            s->data[s->top++] = item; \u005C\u005C\u000A        } \u005C\u005C\u000A    } \u005C\u005C\u000A    \u005C\u005C\u000A    static inline Type Name##_pop(Name* s) { \u005C\u005C\u000A        return s->data[--s->top]; \u005C\u005C\u000A    }\u000A\u000A// Generating a specific type: IntStack\u000ADECLARE_STACK(int, IntStack, 10)\u000A\u000Aint main() {\u000A    IntStack stack = { .top = 0 };\u000A    IntStack_push(&stack, 42);\u000A    printf(\u0022%d\u005Cn\u0022, IntStack_pop(&stack));\u000A    return 0;\u000A}\u000A```\u000A\u000A### Rust Approach: Procedural Macros\u000A```rust\u000Aextern crate proc_macro;\u000Ause proc_macro::TokenStream;\u000Ause quote::quote;\u000Ause syn::{parse_macro_input, Expr, Type, parse::Parse, parse::ParseStream, Token};\u000A\u000A// A custom parser struct to handle: Stack!(i32, 10)\u000Astruct StackArgs {\u000A    ty: Type,\u000A    _comma: Token![,],\u000A    cap: Expr,\u000A}\u000A\u000Aimpl Parse for StackArgs {\u000A    fn parse(input: ParseStream) -> syn::Result<Self> {\u000A        Ok(StackArgs {\u000A            ty: input.parse()?,\u000A            _comma: input.parse()?,\u000A            cap: input.parse()?,\u000A        })\u000A    }\u000A}\u000A\u000A#[proc_macro]\u000Apub fn make_stack(input: TokenStream) -> TokenStream {\u000A    let StackArgs { ty, cap, .. } = parse_macro_input!(input as StackArgs);\u000A\u000A    let expanded = quote! {\u000A        struct Stack {\u000A            data: [#ty; #cap],\u000A            top: usize,\u000A        }\u000A\u000A        impl Stack {\u000A            fn new() -> Self { Self { data: [0; #cap], top: 0 } } // Simplification\u000A            fn push(&mut self, item: #ty) {\u000A                if self.top < #cap {\u000A                    self.data[self.top] = item;\u000A                    self.top += 1;\u000A                }\u000A            }\u000A            fn pop(&mut self) -> #ty {\u000A                self.top -= 1;\u000A                self.data[self.top]\u000A            }\u000A        }\u000A    };\u000A    TokenStream::from(expanded)\u000A}\u000A\u000A// Generates the struct and implementation at compile time\u000Amake_stack!(i32, 10); \u000A\u000Afn main() {\u000A    let mut s = Stack::new();\u000A    s.push(100);\u000A    println!(\u0022{}\u0022, s.pop());\u000A}\u000A```\u000A\u000A### Zig Approach: comptime\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000A// Just a normal function, but it returns a `type` \u000A// and takes compile-time arguments.\u000Afn Stack(comptime T: type, comptime capacity: usize) type {\u000A    return struct {\u000A        data: [capacity]T = undefined,\u000A        top: usize = 0,\u000A\u000A        const Self = @this();\u000A\u000A        pub fn push(self: *Self, item: T) void {\u000A            if (self.top < capacity) {\u000A                self.data[self.top] = item;\u000A                self.top += 1;\u000A            }\u000A        }\u000A\u000A        pub fn pop(self: *Self) T {\u000A            self.top -= 1;\u000A            return self.data[self.top];\u000A        }\u000A    };\u000A}\u000A\u000Apub fn main() !void {\u000A    // Instantiating the type naturally\u000A    var my_stack = Stack(i32, 10){};\u000A    \u000A    my_stack.push(1337);\u000A    std.debug.print(\u0022{d}\u005Cn\u0022, .{my_stack.pop()});\u000A}\u000A```\u000A\u000AIf you have any taste for programming, you can clearly see that the `comptime` solution is miles ahead in terms of elegance.\u000A\u000A---\u000A\u000A## How Zig Proved That Adding More Abstractions Isn\u0027t the Answer\u000A\u000AIt is fascinating to me how Rust and C++ tried to \u0022fix\u0022 C by stacking layers of abstraction on top of it, only to end up being bloated, complicated, and a chore to read and write. Meanwhile, Zig took a different path: it removed some of the few implicit abstractions C actually has (like hidden memory allocations and magic I/O), giving us a language that is both incredibly simple and fun to work with.\u000A\u000ABy now, it\u0027s probably obvious that I\u0027m a massive fan of having no hidden allocations, no hidden control flow, and no preprocessor magic. This philosophy makes your code predictable and debugging infinitely easier.\u000A\u000A### Explicit Memory Allocation\u000A\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000Apub fn main() !void {\u000A    // 1. Explicit Memory Strategy\u000A    // We explicitly choose a General Purpose Allocator. The runtime does not hide this.\u000A    var gpa = std.heap.GeneralPurposeAllocator(.{}){};\u000A    defer _ = gpa.deinit(); // Enforce leak checking at scope exit\u000A    const allocator = gpa.allocator();\u000A\u000A    // 2. Explicit Dependency Injection\u000A    // The ArrayList cannot exist in a vacuum; it *must* hold a reference to our allocator.\u000A    var list = std.ArrayList(i32).init(allocator);\u000A    defer list.deinit(); // Explicit cleanup\u000A\u000A    // 3. Explicit Control Flow and Error Handling\u000A    // Appending can fail if the system runs out of memory. \u000A    // Zig forces you to acknowledge this with the `try` keyword. \u000A    // There are no invisible exceptions—it explicitly bubbles up the call stack.\u000A    try list.append(42);\u000A    try list.append(1337);\u000A\u000A    std.debug.print(\u0022Elements: {any}\u005Cn\u0022, .{list.items});\u000A}\u000A```\u000A\u000ADefining your allocation strategy explicitly makes managing memory straightforward, and the `defer` keyword keeps cleanup simple and clean.\u000A\u000A---\u000A\u000A### Explicit I/O Subsystem\u000A\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000Apub fn main() !void {\u000A    // 1. Explicitly acquire a handle to Standard Output\u000A    // This doesn\u0027t happen automatically; you must ask the OS subsystem for it.\u000A    const stdout_file = std.io.getStdOut();\u000A    \u000A    // 2. Initialize a buffered Writer stream\u000A    // Zig separates the raw file descriptor from the stream interface.\u000A    // If you want buffering to prevent frequent system calls, you wrap it explicitly.\u000A    var bw = std.io.bufferedWriter(stdout_file.writer());\u000A    const stdout = bw.writer();\u000A\u000A    // 3. Perform the I/O operation\u000A    // Because I/O can always fail (e.g., broken pipe, disk full), \u000A    // the compiler forces you to handle the error with \u0027try\u0027.\u000A    try stdout.print(\u0022Hello, {s}!\u005Cn\u0022, .{\u0022systems engineering\u0022});\u000A\u000A    // 4. Explicitly flush the buffer to the OS\u000A    // With buffered I/O, you control exactly when the syscall happens.\u000A    try bw.flush(); \u000A}\u000A```\u000A\u000AThe code above is essentially how you write a production-grade `printf` in Zig. You might look at this and think it\u0027s tedious boilerplate. You might even be right. But I think it\u0027s beautiful.\u000A\u000AWhat it actually does is force you to initialize your I/O devices with explicit implementation details. You get absolute control over your code. If you think that\u0027s \u0022too much control,\u0022 then go back to doing web development at some bloated startup, selling over-engineered solutions to non-existent problems using 100K lines of boilerplate for basic CRUD apps.\u000A\u000A### How `std.io` Actually Works Under the Hood (Peak Comptime)\u000A\u000AIf you look at how other languages handle I/O, they usually rely on virtual tables (vtables) or interface types for dynamic dispatch. Rust has `std::io::Write` trait objects; Go has `io.Writer` interfaces. This works, but it adds runtime overhead.\u000A\u000AZig doesn\u0027t do dynamic dispatch here. Instead, it uses `comptime` duck typing to construct writers and readers on the fly.\u000A\u000AIn the standard library, `std.io.Writer` is just a function that returns a type:\u000A\u000A```zig\u000Apub fn Writer(\u000A    comptime Context: type,\u000A    comptime Error: type,\u000A    comptime writeFn: fn (context: Context, bytes: []const u8) Error!usize,\u000A) type {\u000A    return struct {\u000A        context: Context,\u000A        pub const ErrorSet = Error;\u000A        const Self = @this();\u000A\u000A        pub fn write(self: Self, bytes: []const u8) Error!usize {\u000A            return writeFn(self.context, bytes);\u000A        }\u000A        \u000A        // ... provides helper methods like print(), writeAll(), writeByte() at compile-time\u000A    };\u000A}\u000A```\u000A\u000AThis is insanely powerful. Any struct that implements a `write` function can be instantly wrapped into a full-featured `Writer` at compile time. No vtables, no interfaces, and zero virtual call overhead. The compiler resolves it all down to direct function calls.\u000A\u000AFor a project like `glu`—where I\u0027m building a lightweight robotics communication framework to replace the bloated monster that is ROS2—this is a lifesaver. When publishing telemetry or serializing command payloads over TCP/UDP sockets or serial lines, I can wrap raw handles in custom writers without paying any abstraction tax. Every single byte goes exactly where it needs to, precisely when it needs to, with absolute predictability.\u000A\u000A---\u000A\u000A## Build Systems: What Got Me Into Zig in the First Place\u000A\u000AThis is the main reason I got into Zig. I love C, but its build system options are enough to drive anyone crazy. You are stuck wrestling with CMake or Makefiles, and you have to manually install, build, and link your third-party dependencies. (Though to be honest, a big reason I got decent at programming was because I used to build C projects with zero external dependencies out of sheer laziness to avoid the linking nightmare).\u000A\u000ABut when you want to build actual, real-world systems, you need a solid build system. Zig gives you that—and it doubles as an amazing build system for C and C++ projects too.\u000A\u000AWhile I haven\u0027t used the full C/C++ build system integration yet, importing libraries like `cuda` and `vulkan` into Zig was incredibly smooth. And for my latest project, `glu`, exporting my Zig API functions and types back into C has been a flawless experience.\u000A\u000A---\u000A\u000A## Zig is Not Perfect\u000A\u000AI\u0027ve spent this entire post trying to convince you why Zig is great and why you should use it. But it is not perfect. Nothing is.\u000A\u000AFor one, I\u0027m definitely not a Zig expert yet, so I\u0027m still discovering its rough edges. But the most obvious challenge right now is that Zig has not reached `v1.0.0`. With every new release, parts of the standard library API are broken or deprecated. It\u0027s a backward-compatibility nightmare. You might pull in a third-party package only for it to fail to compile because the library was written for Zig `v0.15.0` and you\u0027re using `v0.16.0`.\u000A\u000AOn top of that, the community is still relatively small. They are brilliant and incredibly helpful people, but it\u0027s a small crowd nonetheless.\u000A\u000A---\u000A\u000A## Will I Use Zig for Large Projects?\u000A\u000AAbsolutely. I am currently building a robotics communication framework called `glu` from scratch. The goal is to make it a lightweight, high-performance alternative to ROS2—a framework that is widely disliked by indie developers and frustrating for labs that need maximum performance without the ROS2 bloat.\u000A\u000AI\u0027m writing `glu` entirely in Zig. Will the backward-compatibility breaks bite me in the ass? Probably. But the language is so good that it\u0027s a risk I\u0027m more than willing to take. I want `glu` to be a rock-solid, reliable system for real production work.\u000A\u000A---\u000A\u000A## A Final Note on AI and Zig\u000A\u000ABecause Zig is a younger language and still changes rapidly, LLMs struggle with it. LLMs are essentially advanced copycats, and since there aren\u0027t millions of Zig repositories to copy from yet, they often write broken code.\u000A\u000ABut if you want to learn a systems language like Zig, you should have the passion to write most of the heavy-lifting logic yourself anyway. Use the AI to spit out the boring boilerplate, and write the real code on your own.';
 var $author$project$Content$Posts$posts = _List_fromArray(
 	[
 		{
-		a$: $author$project$Content$Posts$readCodePost,
-		a1: '“I read the code” is the highest-signal advice in software. A protocol for reading source like an engineer instead of a tourist.',
-		bg: 1,
-		an: '2026-07-21-i-read-code',
-		M: 'complete',
-		aS: _List_fromArray(
-			['craft', 'reading-code']),
-		aT: 'I read the code.'
-	},
-		{
-		a$: $author$project$Content$Posts$plastPost,
-		a1: 'Treating the training stack as a black box stopped being fun. Notes from rebuilding a deep learning engine from autograd up.',
-		bg: 2,
-		an: '2026-07-18-redesigning-plast',
-		M: 'complete',
-		aS: _List_fromArray(
-			['plast', 'deep-learning', 'cuda']),
-		aT: 'Re-designing Plast for a more elegant solution'
-	},
-		{
-		a$: $author$project$Content$Posts$zigPost,
+		a$: '# Why I fell in love with Zig\u000A\u000AOver the last couple of weeks, I set out to learn Zig. I went into it assuming it would be just another bloated piece of software weighed down by too many layers of abstraction—the kind that makes a language more complex instead of making development easier.\u000A\u000AThe last language that gave me that headache was Rust. Don\u0027t get me wrong, Rust\u0027s ownership model for managing memory is clever. But for me, it\u0027s just not worth dealing with all the unnecessary complexity Rust forces on you while you work. To put it simply: Rust is just not fun to write or read.\u000A\u000ASome people will claim Rust is more fun than a language like Go because Go is \u0022too repetitive\u0022, or something like that, and my only response to that is: \u0022go work on real problems, bro.\u0022 as the fun, creative thinking should be spent solving the actual problem at hand—not fighting the language\u0027s syntax or trying to figure out which hyper-abstract concept you need to implement basic logic.\u000A\u000ASo, what makes Zig so great, besides its simplicity?\u000A\u000A---\u000A\u000A## comptime\u000A\u000A`comptime` is absolutely incredible. It is a massive upgrade over C/C++ macros and Rust\u0027s `proc_macro`. It is so intuitive and easy to use because it flows naturally with the rest of the program.\u000A\u000A### C Approach: Preprocessor Magic\u000A```c\u000A#include <stdio.h>\u000A#include <stdbool.h>\u000A\u000A// The \u0022Macro Template\u0022\u000A#define DECLARE_STACK(Type, Name, Capacity) \u005C\u000A    typedef struct { \u005C\u000A        Type data[Capacity]; \u005C\u000A        size_t top; \u005C\u000A    } Name; \u005C\u000A    \u005C\u000A    static inline void Name##_push(Name* s, Type item) { \u005C\u000A        if (s->top < Capacity) { \u005C\u000A            s->data[s->top++] = item; \u005C\u000A        } \u005C\u000A    } \u005C\u000A    \u005C\u000A    static inline Type Name##_pop(Name* s) { \u005C\u000A        return s->data[--s->top]; \u005C\u000A    }\u000A\u000A// Generating a specific type: IntStack\u000ADECLARE_STACK(int, IntStack, 10)\u000A\u000Aint main() {\u000A    IntStack stack = { .top = 0 };\u000A    IntStack_push(&stack, 42);\u000A    printf(\u0022%d\u005Cn\u0022, IntStack_pop(&stack));\u000A    return 0;\u000A}\u000A```\u000A\u000A### Rust Approach: Procedural Macros\u000A```rust\u000Aextern crate proc_macro;\u000Ause proc_macro::TokenStream;\u000Ause quote::quote;\u000Ause syn::{parse_macro_input, Expr, Type, parse::Parse, parse::ParseStream, Token};\u000A\u000A// A custom parser struct to handle: Stack!(i32, 10)\u000Astruct StackArgs {\u000A    ty: Type,\u000A    _comma: Token![,],\u000A    cap: Expr,\u000A}\u000A\u000Aimpl Parse for StackArgs {\u000A    fn parse(input: ParseStream) -> syn::Result<Self> {\u000A        Ok(StackArgs {\u000A            ty: input.parse()?,\u000A            _comma: input.parse()?,\u000A            cap: input.parse()?,\u000A        })\u000A    }\u000A}\u000A\u000A#[proc_macro]\u000Apub fn make_stack(input: TokenStream) -> TokenStream {\u000A    let StackArgs { ty, cap, .. } = parse_macro_input!(input as StackArgs);\u000A\u000A    let expanded = quote! {\u000A        struct Stack {\u000A            data: [#ty; #cap],\u000A            top: usize,\u000A        }\u000A\u000A        impl Stack {\u000A            fn new() -> Self { Self { data: [0; #cap], top: 0 } } // Simplification\u000A            fn push(&mut self, item: #ty) {\u000A                if self.top < #cap {\u000A                    self.data[self.top] = item;\u000A                    self.top += 1;\u000A                }\u000A            }\u000A            fn pop(&mut self) -> #ty {\u000A                self.top -= 1;\u000A                self.data[self.top]\u000A            }\u000A        }\u000A    };\u000A    TokenStream::from(expanded)\u000A}\u000A\u000A// Generates the struct and implementation at compile time\u000Amake_stack!(i32, 10);\u000A\u000Afn main() {\u000A    let mut s = Stack::new();\u000A    s.push(100);\u000A    println!(\u0022{}\u0022, s.pop());\u000A}\u000A```\u000A\u000A### Zig Approach: comptime\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000A// Just a normal function, but it returns a `type`\u000A// and takes compile-time arguments.\u000Afn Stack(comptime T: type, comptime capacity: usize) type {\u000A    return struct {\u000A        data: [capacity]T = undefined,\u000A        top: usize = 0,\u000A\u000A        const Self = @this();\u000A\u000A        pub fn push(self: *Self, item: T) void {\u000A            if (self.top < capacity) {\u000A                self.data[self.top] = item;\u000A                self.top += 1;\u000A            }\u000A        }\u000A\u000A        pub fn pop(self: *Self) T {\u000A            self.top -= 1;\u000A            return self.data[self.top];\u000A        }\u000A    };\u000A}\u000A\u000Apub fn main() !void {\u000A    // Instantiating the type naturally\u000A    var my_stack = Stack(i32, 10){};\u000A    \u000A    my_stack.push(1337);\u000A    std.debug.print(\u0022{d}\u005Cn\u0022, .{my_stack.pop()});\u000A}\u000A```\u000A\u000AIf you have any taste for programming, you can clearly see that the `comptime` solution is miles ahead in terms of elegance.\u000A\u000A---\u000A\u000A## How Zig Proved That Adding More Abstractions Isn\u0027t the Answer\u000A\u000AIt is fascinating to me how Rust and C++ tried to \u0022fix\u0022 C by stacking layers of abstraction on top of it, only to end up being bloated, complicated, and a chore to read and write. Meanwhile, Zig took a different path: it removed some of the few implicit abstractions C actually has (like hidden memory allocations and magic I/O), giving us a language that is both incredibly simple and fun to work with.\u000A\u000ABy now, it\u0027s probably obvious that I\u0027m a massive fan of having no hidden allocations, no hidden control flow, and no preprocessor magic. This philosophy makes your code predictable and debugging infinitely easier.\u000A\u000A### Explicit Memory Allocation\u000A\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000Apub fn main() !void {\u000A    // 1. Explicit Memory Strategy\u000A    // We explicitly choose a General Purpose Allocator. The runtime does not hide this.\u000A    var gpa = std.heap.GeneralPurposeAllocator(.{}){};\u000A    defer _ = gpa.deinit(); // Enforce leak checking at scope exit\u000A    const allocator = gpa.allocator();\u000A\u000A    // 2. Explicit Dependency Injection\u000A    // The ArrayList cannot exist in a vacuum; it *must* hold a reference to our allocator.\u000A    var list = std.ArrayList(i32).init(allocator);\u000A    defer list.deinit(); // Explicit cleanup\u000A\u000A    // 3. Explicit Control Flow and Error Handling\u000A    // Appending can fail if the system runs out of memory. \u000A    // Zig forces you to acknowledge this with the `try` keyword. \u000A    // There are no invisible exceptions—it explicitly bubbles up the call stack.\u000A    try list.append(42);\u000A    try list.append(1337);\u000A\u000A    std.debug.print(\u0022Elements: {any}\u005Cn\u0022, .{list.items});\u000A}\u000A```\u000A\u000ADefining your allocation strategy explicitly makes managing memory straightforward, and the `defer` keyword keeps cleanup simple and clean.\u000A\u000A---\u000A\u000A### Explicit I/O Subsystem\u000A\u000A```zig\u000Aconst std = @import(\u0022std\u0022);\u000A\u000Apub fn main() !void {\u000A    // 1. Explicitly acquire a handle to Standard Output\u000A    // This doesn\u0027t happen automatically; you must ask the OS subsystem for it.\u000A    const stdout_file = std.io.getStdOut();\u000A    \u000A    // 2. Initialize a buffered Writer stream\u000A    // Zig separates the raw file descriptor from the stream interface.\u000A    // If you want buffering to prevent frequent system calls, you wrap it explicitly.\u000A    var bw = std.io.bufferedWriter(stdout_file.writer());\u000A    const stdout = bw.writer();\u000A\u000A    // 3. Perform the I/O operation\u000A    // Because I/O can always fail (e.g., broken pipe, disk full), \u000A    // the compiler forces you to handle the error with \u0027try\u0027.\u000A    try stdout.print(\u0022Hello, {s}!\u005Cn\u0022, .{\u0022systems engineering\u0022});\u000A\u000A    // 4. Explicitly flush the buffer to the OS\u000A    // With buffered I/O, you control exactly when the syscall happens.\u000A    try bw.flush(); \u000A}\u000A```\u000A\u000AThe code above is essentially how you write a production-grade `printf` in Zig. You might look at this and think it\u0027s tedious boilerplate. You might even be right. But I think it\u0027s beautiful.\u000A\u000AWhat it actually does is force you to initialize your I/O devices with explicit implementation details. You get absolute control over your code. If you think that\u0027s \u0022too much control,\u0022 then go back to doing web development at some bloated startup, selling over-engineered solutions to non-existent problems using 100K lines of boilerplate for basic CRUD apps.\u000A\u000A### How `std.io` Actually Works Under the Hood (Peak Comptime)\u000A\u000AIf you look at how other languages handle I/O, they usually rely on virtual tables (vtables) or interface types for dynamic dispatch. Rust has `std::io::Write` trait objects; Go has `io.Writer` interfaces. This works, but it adds runtime overhead.\u000A\u000AZig doesn\u0027t do dynamic dispatch here. Instead, it uses `comptime` duck typing to construct writers and readers on the fly.\u000A\u000AIn the standard library, `std.io.Writer` is just a function that returns a type:\u000A\u000A```zig\u000Apub fn Writer(\u000A    comptime Context: type,\u000A    comptime Error: type,\u000A    comptime writeFn: fn (context: Context, bytes: []const u8) Error!usize,\u000A) type {\u000A    return struct {\u000A        context: Context,\u000A        pub const ErrorSet = Error;\u000A        const Self = @this();\u000A\u000A        pub fn write(self: Self, bytes: []const u8) Error!usize {\u000A            return writeFn(self.context, bytes);\u000A        }\u000A        \u000A        // ... provides helper methods like print(), writeAll(), writeByte() at compile-time\u000A    };\u000A}\u000A```\u000A\u000AThis is insanely powerful. Any struct that implements a `write` function can be instantly wrapped into a full-featured `Writer` at compile time. No vtables, no interfaces, and zero virtual call overhead. The compiler resolves it all down to direct function calls.\u000A\u000AFor a project like `glu`—where I\u0027m building a lightweight robotics communication framework to replace the bloated monster that is ROS2—this is a lifesaver. When publishing telemetry or serializing command payloads over TCP/UDP sockets or serial lines, I can wrap raw handles in custom writers without paying any abstraction tax. Every single byte goes exactly where it needs to, precisely when it needs to, with absolute predictability.\u000A\u000A---\u000A\u000A## Build Systems: What Got Me Into Zig in the First Place\u000A\u000AThis is the main reason I got into Zig. I love C, but its build system options are enough to drive anyone crazy. You are stuck wrestling with CMake or Makefiles, and you have to manually install, build, and link your third-party dependencies. (Though to be honest, a big reason I got decent at programming was because I used to build C projects with zero external dependencies out of sheer laziness to avoid the linking nightmare).\u000A\u000ABut when you want to build actual, real-world systems, you need a solid build system. Zig gives you that—and it doubles as an amazing build system for C and C++ projects too.\u000A\u000AWhile I haven\u0027t used the full C/C++ build system integration yet, importing libraries like `cuda` and `vulkan` into Zig was incredibly smooth. And for my latest project, `glu`, exporting my Zig API functions and types back into C has been a flawless experience.\u000A\u000A---\u000A\u000A## Zig is Not Perfect\u000A\u000AI\u0027ve spent this entire post trying to convince you why Zig is great and why you should use it. But it is not perfect. Nothing is.\u000A\u000AFor one, I\u0027m definitely not a Zig expert yet, so I\u0027m still discovering its rough edges. But the most obvious challenge right now is that Zig has not reached `v1.0.0`. With every new release, parts of the standard library API are broken or deprecated. It\u0027s a backward-compatibility nightmare. You might pull in a third-party package only for it to fail to compile because the library was written for Zig `v0.15.0` and you\u0027re using `v0.16.0`.\u000A\u000AOn top of that, the community is still relatively small. They are brilliant and incredibly helpful people, but it\u0027s a small crowd nonetheless.\u000A\u000A---\u000A\u000A## Will I Use Zig for Large Projects?\u000A\u000AAbsolutely. I am currently building a robotics communication framework called `glu` from scratch. The goal is to make it a lightweight, high-performance alternative to ROS2—a framework that is widely disliked by indie developers and frustrating for labs that need maximum performance without the ROS2 bloat.\u000A\u000AI\u0027m writing `glu` entirely in Zig. Will the backward-compatibility breaks bite me in the ass? Probably. But the language is so good that it\u0027s a risk I\u0027m more than willing to take. I want `glu` to be a rock-solid, reliable system for real production work.\u000A\u000A---\u000A\u000A## A Final Note on AI and Zig\u000A\u000ABecause Zig is a younger language and still changes rapidly, LLMs struggle with it. LLMs are essentially advanced copycats, and since there aren\u0027t millions of Zig repositories to copy from yet, they often write broken code.\u000A\u000ABut if you want to learn a systems language like Zig, you should have the passion to write most of the heavy-lifting logic yourself anyway. Use the AI to spit out the boring boilerplate, and write the real code on your own.',
 		a1: 'Comptime, no hidden control flow, errors as values — notes on why Zig feels like the first language that respects the programmer since C.',
-		bg: 3,
-		an: '2026-07-09-zig',
-		M: 'complete',
+		bg: 1,
+		ai: '2026-08-27-zig',
+		aP: 'complete',
 		aS: _List_fromArray(
 			['zig', 'systems', 'languages']),
 		aT: 'Why I fell in love with Zig'
-	},
-		{
-		a$: $author$project$Content$Posts$saasPost,
-		a1: 'Five months inside a startup taught me what the ecosystem actually optimizes for. Field notes from stripping an AI-SIEM hackathon demo down into a real engine.',
-		bg: 4,
-		an: '2026-06-20-what-I-have-learnt-building-a-SaaS-startup',
-		M: 'complete',
-		aS: _List_fromArray(
-			['startups', 'systems', 'culture']),
-		aT: 'What I Learnt Building a SaaS'
 	}
 	]);
 var $elm$core$Maybe$withDefault = F2(
@@ -5395,7 +5361,7 @@ var $author$project$Router$parseFragment = function (fragment) {
 					return A2(
 						$elm$core$List$any,
 						function (p) {
-							return _Utils_eq(p.an, slug);
+							return _Utils_eq(p.ai, slug);
 						},
 						$author$project$Content$Posts$posts) ? $author$project$Router$Post(slug) : $author$project$Router$NotFound('/writing/' + slug);
 				} else {
@@ -5445,7 +5411,7 @@ var $author$project$Main$init = F3(
 				r: false,
 				v: false,
 				bs: '',
-				U: A2($author$project$Main$requestedPathOf, url, route),
+				P: A2($author$project$Main$requestedPathOf, url, route),
 				bv: route,
 				bw: 0
 			},
@@ -5464,7 +5430,7 @@ var $elm$time$Time$Every = F2(
 	});
 var $elm$time$Time$State = F2(
 	function (taggers, processes) {
-		return {aK: processes, aR: taggers};
+		return {aJ: processes, aR: taggers};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5756,7 +5722,7 @@ var $elm$time$Time$spawnHelp = F3(
 	});
 var $elm$time$Time$onEffects = F3(
 	function (router, subs, _v0) {
-		var processes = _v0.aK;
+		var processes = _v0.aJ;
 		var rightStep = F3(
 			function (_v6, id, _v7) {
 				var spawns = _v7.a;
@@ -5871,7 +5837,7 @@ var $elm$time$Time$every = F2(
 	});
 var $author$project$Main$KeyInfo = F4(
 	function (key, ctrl, meta, inField) {
-		return {ac: ctrl, aA: inField, bc: key, ae: meta};
+		return {U: ctrl, az: inField, bc: key, Y: meta};
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $elm$json$Json$Decode$at = F2(
@@ -5910,7 +5876,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {aH: pids, aQ: subs};
+		return {aG: pids, aQ: subs};
 	});
 var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
 	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
@@ -5944,7 +5910,7 @@ var $elm$core$Dict$fromList = function (assocs) {
 };
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {aw: event, bc: key};
+		return {av: event, bc: key};
 	});
 var $elm$browser$Browser$Events$spawn = F3(
 	function (router, key, _v0) {
@@ -6018,7 +5984,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.aH,
+			state.aG,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -6064,7 +6030,7 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var event = _v0.aw;
+		var event = _v0.av;
 		var key = _v0.bc;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
@@ -6243,7 +6209,7 @@ var $author$project$Components$Palette$GoTo = function (a) {
 };
 var $author$project$Components$Palette$Suggestion = F5(
 	function (label, kind, detail, haystack, target) {
-		return {au: detail, ax: haystack, aC: kind, bd: label, by: target};
+		return {at: detail, aw: haystack, aB: kind, bd: label, by: target};
 	});
 var $author$project$Utils$Date$iso = function (slug) {
 	return A2($elm$core$String$left, 10, slug);
@@ -6301,19 +6267,19 @@ var $author$project$Components$Palette$postSuggestion = function (post) {
 		$author$project$Components$Palette$Suggestion,
 		post.aT,
 		'fn-' + $author$project$Components$Palette$pad2(post.bg),
-		$author$project$Utils$Date$display(post.an) + (' · ' + A2($elm$core$String$join, ', ', post.aS)),
+		$author$project$Utils$Date$display(post.ai) + (' · ' + A2($elm$core$String$join, ', ', post.aS)),
 		A2(
 			$elm$core$String$join,
 			' ',
 			_List_fromArray(
 				[
-					post.an,
+					post.ai,
 					post.aT,
 					A2($elm$core$String$join, ' ', post.aS),
 					post.a1
 				])),
 		$author$project$Components$Palette$GoTo(
-			$author$project$Router$Post(post.an)));
+			$author$project$Router$Post(post.ai)));
 };
 var $author$project$Components$Palette$suggestions = _Utils_ap(
 	_List_fromArray(
@@ -6379,7 +6345,7 @@ var $author$project$Components$Palette$filterSuggestions = function (query) {
 	return (needle === '') ? $author$project$Components$Palette$suggestions : A2(
 		$elm$core$List$filter,
 		function (s) {
-			var hay = $elm$core$String$toLower(s.ax);
+			var hay = $elm$core$String$toLower(s.aw);
 			return A2(
 				$elm$core$List$all,
 				function (w) {
@@ -6451,7 +6417,7 @@ var $author$project$Main$togglePalette = function (model) {
 };
 var $author$project$Main$globalKey = F2(
 	function (info, model) {
-		if ((info.ac || info.ae) && ((info.bc === 'k') || (info.bc === 'K'))) {
+		if ((info.U || info.Y) && ((info.bc === 'k') || (info.bc === 'K'))) {
 			return $author$project$Main$togglePalette(model);
 		} else {
 			if (info.bc === 'Escape') {
@@ -6461,7 +6427,7 @@ var $author$project$Main$globalKey = F2(
 						{r: false, v: false}),
 					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			} else {
-				if (model.r || (info.aA || (info.ac || info.ae))) {
+				if (model.r || (info.az || (info.U || info.Y))) {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				} else {
 					if (model.v) {
@@ -6565,7 +6531,7 @@ var $elm$url$Url$addPrefixed = F3(
 	});
 var $elm$url$Url$toString = function (url) {
 	var http = function () {
-		var _v0 = url.aL;
+		var _v0 = url.aK;
 		if (!_v0) {
 			return 'http://';
 		} else {
@@ -6583,9 +6549,9 @@ var $elm$url$Url$toString = function (url) {
 			_Utils_ap(
 				A2(
 					$elm$url$Url$addPort,
-					url.aI,
-					_Utils_ap(http, url.az)),
-				url.aG)));
+					url.aH,
+					_Utils_ap(http, url.ay)),
+				url.aF)));
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -6617,7 +6583,7 @@ var $author$project$Main$update = F2(
 						{
 							r: false,
 							v: false,
-							U: A2($author$project$Main$requestedPathOf, url, route),
+							P: A2($author$project$Main$requestedPathOf, url, route),
 							bv: route
 						}),
 					A2(
@@ -6960,8 +6926,8 @@ var $elm$time$Time$toAdjustedMinutesHelp = F3(
 			} else {
 				var era = eras.a;
 				var olderEras = eras.b;
-				if (_Utils_cmp(era.ao, posixMinutes) < 0) {
-					return posixMinutes + era.aF;
+				if (_Utils_cmp(era.ak, posixMinutes) < 0) {
+					return posixMinutes + era.aE;
 				} else {
 					var $temp$defaultOffset = defaultOffset,
 						$temp$posixMinutes = posixMinutes,
@@ -7052,15 +7018,15 @@ var $elm$time$Time$toCivil = function (minutes) {
 	var month = mp + ((mp < 10) ? 3 : (-9));
 	var year = yearOfEra + (era * 400);
 	return {
-		at: (dayOfYear - ((((153 * mp) + 2) / 5) | 0)) + 1,
-		aE: month,
+		as: (dayOfYear - ((((153 * mp) + 2) / 5) | 0)) + 1,
+		aD: month,
 		aZ: year + ((month <= 2) ? 1 : 0)
 	};
 };
 var $elm$time$Time$toDay = F2(
 	function (zone, time) {
 		return $elm$time$Time$toCivil(
-			A2($elm$time$Time$toAdjustedMinutes, zone, time)).at;
+			A2($elm$time$Time$toAdjustedMinutes, zone, time)).as;
 	});
 var $elm$time$Time$Apr = 3;
 var $elm$time$Time$Aug = 7;
@@ -7077,7 +7043,7 @@ var $elm$time$Time$Sep = 8;
 var $elm$time$Time$toMonth = F2(
 	function (zone, time) {
 		var _v0 = $elm$time$Time$toCivil(
-			A2($elm$time$Time$toAdjustedMinutes, zone, time)).aE;
+			A2($elm$time$Time$toAdjustedMinutes, zone, time)).aD;
 		switch (_v0) {
 			case 1:
 				return 0;
@@ -7357,7 +7323,7 @@ var $author$project$Main$CopyCode = function (a) {
 var $author$project$Main$ScrollToId = function (a) {
 	return {$: 13, a: a};
 };
-var $author$project$Pages$About$about = 'I taught myself to write code at 11, calculus at 14, Lagrangian mechanics at 16. Since then I\u0027ve lived somewhere between C, Zig, CUDA and whatever problem refuses to leave me alone. In two years college takes the \u0022self-taught\u0022 label away from me — I intend to make the most of it while it\u0027s still mine.\u000A\u000AI build [glu](https://github.com/Vixel2006/glu), a robotics middleware in Zig, and [plast](https://github.com/Vixel2006/plast), a deep learning engine in C/CUDA. The long game is a software stack for robotics built from the ground up — no bloat, no abstractions that leak, no corporate rot — with machine intelligence that actually understands physics running on top of it: world models, representation learning, agents that model the world rather than paraphrase the internet.\u000A\u000AThis site is my lab notebook. What I\u0027m building, breaking, reading and failing at — documented as honestly as I can manage.\u000A\u000A---\u000A\u000A## Why robotics\u000A\u000ASoftware that only lives on a screen always felt like half the story. Robots force every abstraction you write to survive contact with physics — timing budgets, sensor noise, gravity. That constraint is exactly what makes the engineering interesting: you can\u0027t argue your way out of a bug that ends with a broken actuator.\u000A\u000A## Why systems\u000A\u000ABecause performance is a design decision, not an afterthought. I like being close enough to the metal to know what the machine is actually doing — allocators, schedulers, syscalls, cache lines. Understanding the whole stack is the difference between *using* tools and *making* them. Zig is currently my favorite place to stand: C-level control, compile-time metaprogramming, and no hidden control flow.\u000A\u000A## Why AI\u000A\u000ANot wrappers — foundations. I care about the training systems, the architectures, and eventually models that hold a predictive representation of the world good enough to act in it. Deep learning gave us perception; world models are how it gets imagination. Someone has to build the infrastructure that makes those trainable at robot timescales — I want to be one of those someones.\u000A\u000A> NOTE: currently on the bench — STM32 boards, a logic analyzer, and more jumper wires than any one desk should contain. Control theory textbooks are winning so far.\u000A\u000A## Things I\u0027m learning right now\u000A\u000A- Embedded systems & electronics\u000A- Control theory\u000A- Reinforcement learning\u000A- World models & representation learning\u000A- Robotics middleware design\u000A- Compilers, slowly and stubbornly\u000A\u000A## What I want to build eventually\u000A\u000A- A complete open software stack for robots, built bottom-up: middleware, control, and learned models designed together instead of stapled apart.\u000A- A robot running entirely on software I wrote — from the wire protocol up to the world model.\u000A- Tooling that makes embodied intelligence cheaper to build, so more people can do it.\u000A\u000A## Contact\u000A\u000AThe fastest way to reach me is [email](mailto:yusufshihata2006@gmail.com). I\u0027m also on [GitHub](https://github.com/Vixel2006), [X](https://x.com/this_vixel) and [LinkedIn](https://www.linkedin.com/in/yusufmohamed2006).\u000A\u000A---\u000A\u000A> webmaster: vixel\u000A> pgp: ask nicely\u000A> uptime: since 2006\u000A> theme: catppuccin mocha, forever';
+var $author$project$Pages$About$about = 'A self-thought nerd, I started programming at late 11, studied calculus, and linear algebra at 14, I love the process of writing low-level code that is close to the machine where every line of code really matter, I\u0027m interesting in physical ai, which is basically how to make ai do the boring stuff for you, currently researching different ways to make neural networks learn a multimodal joint representation so that we can fuse agents\u0027 inputs from different sensors into a latent space to plan and take actions in.\u000A\u000AI build [glu](https://github.com/Vixel2006/glu), a robotics middleware in Zig, and [plast](https://github.com/Vixel2006/plast), a deep learning engine in C/CUDA. The long game is a software stack for robotics built from the ground up — no bloat, no abstractions that leak, no corporate rot — with machine intelligence that actually understands physics running on top of it: world models, representation learning, agents that model the world rather than paraphrase the internet.\u000A\u000AThis site is my lab notebook. What I\u0027m building, breaking, reading and failing at — documented as honestly as I can manage.\u000A\u000A---\u000A\u000A## Why robotics\u000A\u000AI have always been interested in a lot of stuff, I want to write unix systems code, embedded code, design electronics, and experiment with neural networks, which makes robotics a great fit for me, and how useful and transformative this technology can be is a cherry of the top for me tbh.\u000A\u000A> NOTE: currently on the bench — STM32 boards, a logic analyzer, and more jumper wires than any one desk should contain. Control theory textbooks are winning so far.\u000A\u000A## Things I\u0027m learning right now (reading papers, doing projects is the only way you get better)\u000A\u000A- Embedded systems & electronics\u000A- Control theory\u000A- Reinforcement learning\u000A- World models & representation learning\u000A- Robotics middleware design\u000A\u000A## What I want to build eventually\u000A\u000A- A complete open software stack for robots, built bottom-up: middleware, control, and learned models designed together instead of stapled apart.\u000A- A robot running entirely on software I wrote — from the wire protocol up to the world model.\u000A- Tooling that makes embodied intelligence cheaper to build, so more people can do it.\u000A\u000A## Contact\u000A\u000AThe fastest way to reach me is [email](mailto:yusufshihata2006@gmail.com). I\u0027m also on [GitHub](https://github.com/Vixel2006), [X](https://x.com/this_vixel) and [LinkedIn](https://www.linkedin.com/in/yusufmohamed2006).\u000A\u000A---\u000A\u000A> webmaster: vixel\u000A> pgp: ask nicely\u000A> uptime: since 2006\u000A> personality: hacker, forever';
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $author$project$Markdown$levelOf = function (block) {
 	if (!block.$) {
@@ -7444,8 +7410,8 @@ var $author$project$Markdown$imageOf = function (paras) {
 				var i = _v1.a;
 				return $elm$core$Maybe$Just(
 					{
-						ab: A2($elm$core$String$left, i, inner),
-						aP: A2($elm$core$String$dropLeft, i + 2, inner)
+						T: A2($elm$core$String$left, i, inner),
+						aO: A2($elm$core$String$dropLeft, i + 2, inner)
 					});
 			} else {
 				return $elm$core$Maybe$Nothing;
@@ -7592,9 +7558,9 @@ var $author$project$Markdown$fenceHelp = F4(
 						$elm$core$String$join,
 						'\u000A',
 						$elm$core$List$reverse(acc)),
-					R: file,
+					O: file,
 					be: lang,
-					V: _List_Nil
+					Q: _List_Nil
 				};
 			} else {
 				var line = rest.a;
@@ -7608,9 +7574,9 @@ var $author$project$Markdown$fenceHelp = F4(
 							$elm$core$String$join,
 							'\u000A',
 							$elm$core$List$reverse(acc)),
-						R: file,
+						O: file,
 						be: lang,
-						V: more
+						Q: more
 					};
 				} else {
 					var $temp$lang = lang,
@@ -7807,10 +7773,10 @@ var $author$project$Markdown$parseHelp = F2(
 				var rest = lines.b;
 				if (A2($elm$core$String$startsWith, '```', line)) {
 					var fence = A2($author$project$Markdown$takeFence, line, rest);
-					var $temp$lines = fence.V,
+					var $temp$lines = fence.Q,
 						$temp$acc = A2(
 						$elm$core$List$cons,
-						A3($author$project$Markdown$CodeBlock_, fence.be, fence.R, fence.a$),
+						A3($author$project$Markdown$CodeBlock_, fence.be, fence.O, fence.a$),
 						acc);
 					lines = $temp$lines;
 					acc = $temp$acc;
@@ -8612,7 +8578,7 @@ var $author$project$Syntax$Num = 3;
 var $author$project$Syntax$Str = 2;
 var $author$project$Syntax$Token = F2(
 	function (kind, text) {
-		return {aC: kind, bz: text};
+		return {aB: kind, bz: text};
 	});
 var $author$project$Syntax$atLineStart = function (buf) {
 	if (!buf.b) {
@@ -9258,7 +9224,7 @@ var $author$project$Syntax$addToken = F2(
 	function (token, acc) {
 		return A4(
 			$author$project$Syntax$addSegs,
-			token.aC,
+			token.aB,
 			0,
 			A2($elm$core$String$split, '\u000A', token.bz),
 			acc);
@@ -9411,7 +9377,7 @@ var $author$project$Markdown$viewBlock = F4(
 				var body = block.c;
 				return _Utils_Tuple2(
 					$author$project$Components$CodeBlock$view(
-						{a$: body, a5: file, ba: index, be: lang, bh: cfg.as}),
+						{a$: body, a5: file, ba: index, be: lang, bh: cfg.ar}),
 					index + 1);
 			case 3:
 				var ordered = block.a;
@@ -9588,8 +9554,8 @@ var $author$project$Markdown$viewBlock = F4(
 								$elm$html$Html$img,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$src(img.aP),
-										$elm$html$Html$Attributes$alt(img.ab),
+										$elm$html$Html$Attributes$src(img.aO),
+										$elm$html$Html$Attributes$alt(img.T),
 										A2($elm$html$Html$Attributes$attribute, 'loading', 'lazy')
 									]),
 								_List_Nil),
@@ -9598,7 +9564,7 @@ var $author$project$Markdown$viewBlock = F4(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(img.ab)
+										$elm$html$Html$text(img.T)
 									]))
 							])),
 					index);
@@ -9681,7 +9647,7 @@ var $author$project$Main$aboutPage = A2(
 				[
 					A2(
 					$author$project$Markdown$render,
-					{as: $author$project$Main$CopyCode},
+					{ar: $author$project$Main$CopyCode},
 					$author$project$Pages$About$about)
 				]))
 		]));
@@ -9843,13 +9809,13 @@ var $author$project$Pages$Projects$dossier = F2(
 									$elm$html$Html$text(
 									'P.' + $author$project$Pages$Projects$pad2(i + 1))
 								])),
-							$author$project$Components$Ui$statusLed(proj.M),
+							$author$project$Components$Ui$statusLed(proj.aP),
 							$author$project$Components$Ui$specTable(
 							_List_fromArray(
 								[
-									{bc: 'domain', bC: proj.P},
+									{bc: 'domain', bC: proj.V},
 									{bc: 'lang', bC: proj.be},
-									{bc: 'period', bC: proj.T}
+									{bc: 'period', bC: proj.ae}
 								])),
 							A2(
 							$elm$html$Html$div,
@@ -9871,7 +9837,7 @@ var $author$project$Pages$Projects$dossier = F2(
 												$elm$html$Html$text(s)
 											]));
 								},
-								proj.W))
+								proj.aj))
 						])),
 					A2(
 					$elm$html$Html$div,
@@ -9897,7 +9863,7 @@ var $author$project$Pages$Projects$dossier = F2(
 										]),
 									_List_fromArray(
 										[
-											$elm$html$Html$text(proj.S)
+											$elm$html$Html$text(proj._)
 										])),
 									A2(
 									$elm$html$Html$a,
@@ -9907,11 +9873,11 @@ var $author$project$Pages$Projects$dossier = F2(
 											$elm$html$Html$Attributes$href(proj.aU),
 											$elm$html$Html$Attributes$target('_blank'),
 											$elm$html$Html$Attributes$rel('noopener'),
-											A2($elm$html$Html$Attributes$attribute, 'aria-label', proj.S + (' on ' + proj.Z))
+											A2($elm$html$Html$Attributes$attribute, 'aria-label', proj._ + (' on ' + proj.an))
 										]),
 									_List_fromArray(
 										[
-											$elm$html$Html$text(proj.Z + ' ↗')
+											$elm$html$Html$text(proj.an + ' ↗')
 										]))
 								])),
 							A2(
@@ -9922,7 +9888,7 @@ var $author$project$Pages$Projects$dossier = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(proj.X)
+									$elm$html$Html$text(proj.am)
 								])),
 							A2(
 							$elm$html$Html$h3,
@@ -9942,7 +9908,7 @@ var $author$project$Pages$Projects$dossier = F2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(proj._)
+									$elm$html$Html$text(proj.ao)
 								])),
 							A2(
 							$elm$html$Html$h3,
@@ -9960,7 +9926,7 @@ var $author$project$Pages$Projects$dossier = F2(
 								[
 									$elm$html$Html$Attributes$class('eng-list')
 								]),
-							A2($elm$core$List$map, $author$project$Pages$Projects$engItem, proj.Q)),
+							A2($elm$core$List$map, $author$project$Pages$Projects$engItem, proj.W)),
 							(proj.a8 === 'glu') ? A2(
 							$elm$html$Html$figure,
 							_List_fromArray(
@@ -9990,68 +9956,52 @@ var $author$project$Pages$Projects$dossier = F2(
 var $author$project$Content$Projects$projects = _List_fromArray(
 	[
 		{
-		P: 'robotics middleware',
-		Q: _List_fromArray(
-			['Shared-memory transport between processes on the same host — zero-copy where it matters most.', 'io_uring on Linux for network I/O; TCP when delivery matters, UDP when latency does.', 'Peer discovery, so nodes find each other without a central master process.', 'Message schemas defined once and turned into code — types checked at compile time, not at runtime.']),
+		V: 'robotics middleware',
+		W: _List_fromArray(
+			['Shared-memory transport between processes on the same host — zero-copy where it matters most.', 'io_uring on Linux for network I/O; TCP when delivery matters, UDP when latency does.', 'Peer discovery, so nodes find each other without a central master process.', 'Message schemas defined once and turned into code — types checked at compile time, not at runtime.', 'A simple determinstic daemon for discovery and managing the nodes.']),
 		a8: 'glu',
 		be: 'zig',
-		S: 'glu',
-		T: '2026—',
-		W: _List_fromArray(
-			['zig', 'posix', 'io_uring', 'shared memory', 'tcp / udp', 'codegen']),
-		M: 'active',
-		X: 'Robotics communication infrastructure. One binary, predictable latency, no daemon to negotiate with.',
+		_: 'glu',
+		ae: '2026—',
+		aj: _List_fromArray(
+			['zig', 'posix', 'io_uring', 'shared memory', 'tcp / udp', 'codegen', 'linux daemon']),
+		aP: 'active',
+		am: 'Robotics communication infrastructure. One binary, predictable latency.',
 		aU: 'https://github.com/Vixel2006/glu',
-		Z: 'source',
-		_: 'ROS 2 is incredibly capable, but it drags a decade of abstraction and configuration with it. I wanted to find out how small a robotics communication system could be if it were designed around explicit performance instead of layers of middleware.'
+		an: 'source',
+		ao: 'I was getting into robotics programming for the first time, I tried to learn ROS 2, I found it very boring and complex, with a lot of abstractions, so I thought I can make a much simpler version that is performant, reliable, and lightweight, so I\u0027m building glu.'
 	},
 		{
-		P: 'deep learning systems',
-		Q: _List_fromArray(
+		V: 'deep learning systems',
+		W: _List_fromArray(
 			['Hand-optimized CUDA kernels instead of vendor calls everywhere.', 'A graph-based scheduler that owns execution order and memory lifetimes.', 'A minimal JIT backend to strip runtime overhead out of the hot path.', 'Autograd built from first principles, not bolted on.']),
 		a8: 'plast',
 		be: 'c / cuda',
-		S: 'plast',
-		T: '2025—',
-		W: _List_fromArray(
+		_: 'plast',
+		ae: '2025—',
+		aj: _List_fromArray(
 			['c', 'cuda', 'autograd', 'jit']),
-		M: 'redesigning',
-		X: 'A deep learning engine written from scratch — no framework magic.',
+		aP: 'maybe done',
+		am: 'A deep learning engine written from scratch — no framework magic.',
 		aU: 'https://github.com/Vixel2006/plast',
-		Z: 'source',
-		_: 'I didn\u0027t want to treat the training stack as a black box. Building my own means every autograd edge, kernel launch and allocator decision passes through my hands — which turns \u0022deep learning frameworks\u0022 from magic into machinery I fully understand.'
+		an: 'source',
+		ao: 'I didn\u0027t want to treat the training stack as a black box. Building my own means every autograd edge, kernel launch and allocator decision passes through my hands — which turns \u0022deep learning frameworks\u0022 from magic into machinery I fully understand, now that I have much more experience I can think of million better ways to make it a better library, so maybe I will return to it someday in the future'
 	},
 		{
-		P: 'security infrastructure',
-		Q: _List_fromArray(
-			['Zero-allocation ingestion pipeline for high-concurrency traffic.', 'Detection cascade: fast regex pass, statistical scoring, ML only where it earns its latency.', 'Language-specific SDK middlewares so apps stream events without rerouting their network.', 'Native C core for the hot path; Go for orchestration.']),
-		a8: 'argos',
-		be: 'go / c',
-		S: 'argos',
-		T: '2026',
+		V: 'research',
 		W: _List_fromArray(
-			['go', 'kafka', 'redis', 'c']),
-		M: 'production',
-		X: 'Real-time API security that parses traffic at line rate.',
-		aU: 'https://argossecops.com',
-		Z: 'argossecops.com',
-		_: 'Started as a hackathon project that deserved to lose. We stripped the AI theater and rebuilt it as an actual engine: a zero-allocation ingestion pipeline feeding a detection core designed to parse traffic at line rate, not after the incident.'
-	},
-		{
-		P: 'research',
-		Q: _List_fromArray(
 			['Linear-scaling attention variant for fused vision-language sequences.', 'Fusion layer design compared against standard cross-attention baselines.', 'Experiments run on tooling that grew into plast.']),
 		a8: 'grf',
 		be: 'multimodal learning',
-		S: 'grf',
-		T: '2026',
-		W: _List_fromArray(
+		_: 'grf',
+		ae: '2026',
+		aj: _List_fromArray(
 			['transformers', 'attention', 'vision-language']),
-		M: 'preprint',
-		X: 'Multimodal fusion layers with linear-scaling attention for vision-language models.',
+		aP: 'preprint',
+		am: 'Multimodal fusion layers with linear-scaling attention for vision-language models.',
 		aU: 'https://github.com/Vixel2006/GRF',
-		Z: 'preprint',
-		_: 'Cross-modal attention gets expensive quadratically as you fuse longer sequences. GRF is an attempt at fusion layers that scale linearly without gutting downstream quality — explored through a pre-print on multimodal fusion in transformer architectures.'
+		an: 'preprint',
+		ao: 'Cross-modal attention gets expensive quadratically as you fuse longer sequences. GRF is an attempt at fusion layers that scale linearly without gutting downstream quality — explored through a pre-print on multimodal fusion in transformer architectures.'
 	}
 	]);
 var $author$project$Pages$Projects$projectsView = function (_v0) {
@@ -10105,50 +10055,50 @@ var $author$project$Pages$Projects$projectsView = function (_v0) {
 var $author$project$Content$Projects$research = _List_fromArray(
 	[
 		{
-		aa: 'Working toward predictive models that learn dynamics in latent space — the long-term goal is a robot that imagines the outcome of an action before committing actuators to it.',
+		S: 'Working toward predictive models that learn dynamics in latent space — the long-term goal is a robot that imagines the outcome of an action before committing actuators to it.',
 		a8: 'world-models',
-		aC: 'notes',
-		ad: _List_Nil,
-		ah: _List_fromArray(
+		aB: 'notes',
+		X: _List_Nil,
+		ab: _List_fromArray(
 			['Studying JEPA-style predictive architectures versus pixel-reconstruction approaches.', 'Latent rollouts: cheap imagination, but how much physics do they actually retain?', 'glu\u0027s telemetry stream could double as the data plumbing for training such models.']),
-		al: _List_fromArray(
+		ag: _List_fromArray(
 			[
 				_Utils_Tuple2('project: glu', '#/projects'),
 				_Utils_Tuple2('field note: zig', '#/writing/2026-07-09-zig')
 			]),
-		M: 'exploring',
+		aP: 'exploring',
 		aT: 'World models for robot control'
 	},
 		{
-		aa: 'Ongoing notes on representation learning: contrastive versus reconstructive objectives, what a policy actually needs from its encoder, and how much of the world a compressed state can afford to forget.',
+		S: 'Ongoing notes on representation learning: contrastive versus reconstructive objectives, what a policy actually needs from its encoder, and how much of the world a compressed state can afford to forget.',
 		a8: 'representation-learning',
-		aC: 'notes',
-		ad: _List_Nil,
-		ah: _List_fromArray(
+		aB: 'notes',
+		X: _List_Nil,
+		ab: _List_fromArray(
 			['Contrastive objectives throw away detail — sometimes exactly the detail control needs.', 'Small-scale experiments before scaling: measure what survives compression.']),
-		al: _List_fromArray(
+		ag: _List_fromArray(
 			[
 				_Utils_Tuple2('project: plast', '#/projects')
 			]),
-		M: 'ongoing',
+		aP: 'ongoing',
 		aT: 'What should a representation remember?'
 	},
 		{
-		aa: 'A pre-print on multimodal fusion layers in transformer architectures. Cross-attention cost explodes as fused sequences grow; GRF explores a linear-scaling attention mechanism for vision-language models and measures where it holds up.',
+		S: 'A pre-print on multimodal fusion layers in transformer architectures. Cross-attention cost explodes as fused sequences grow; GRF explores a linear-scaling attention mechanism for vision-language models and measures where it holds up.',
 		a8: 'grf-fusion',
-		aC: 'paper',
-		ad: _List_fromArray(
+		aB: 'paper',
+		X: _List_fromArray(
 			[
 				_Utils_Tuple2('github.com/Vixel2006/GRF', 'https://github.com/Vixel2006/GRF')
 			]),
-		ah: _List_fromArray(
+		ab: _List_fromArray(
 			['Attention over the fused sequence drops from quadratic to linear in length.', 'Quality gap measured against standard cross-attention baselines.']),
-		al: _List_fromArray(
+		ag: _List_fromArray(
 			[
 				_Utils_Tuple2('project: grf', '#/projects'),
 				_Utils_Tuple2('project: plast', '#/projects')
 			]),
-		M: 'preprint',
+		aP: 'preprint',
 		aT: 'GRF: multimodal fusion at linear cost'
 	}
 	]);
@@ -10214,9 +10164,9 @@ var $author$project$Pages$Projects$researchEntry = function (entry) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(entry.aC)
+								$elm$html$Html$text(entry.aB)
 							])),
-						$author$project$Components$Ui$statusLed(entry.M)
+						$author$project$Components$Ui$statusLed(entry.aP)
 					])),
 				A2(
 				$elm$html$Html$h3,
@@ -10236,7 +10186,7 @@ var $author$project$Pages$Projects$researchEntry = function (entry) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(entry.aa)
+						$elm$html$Html$text(entry.S)
 					])),
 				A2(
 				$elm$html$Html$ul,
@@ -10244,7 +10194,7 @@ var $author$project$Pages$Projects$researchEntry = function (entry) {
 					[
 						$elm$html$Html$Attributes$class('eng-list')
 					]),
-				A2($elm$core$List$map, $author$project$Pages$Projects$engItem, entry.ah)),
+				A2($elm$core$List$map, $author$project$Pages$Projects$engItem, entry.ab)),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -10264,8 +10214,8 @@ var $author$project$Pages$Projects$researchEntry = function (entry) {
 								$elm$html$Html$text('related:')
 							])),
 					_Utils_ap(
-						A2($elm$core$List$map, $author$project$Pages$Projects$relatedLink, entry.al),
-						$author$project$Pages$Projects$externalLinks(entry.ad))))
+						A2($elm$core$List$map, $author$project$Pages$Projects$relatedLink, entry.ag),
+						$author$project$Pages$Projects$externalLinks(entry.X))))
 			]));
 };
 var $author$project$Pages$Projects$researchView = function (_v0) {
@@ -10510,7 +10460,7 @@ var $author$project$Pages$Home$workRow = F2(
 					$elm$html$Html$Attributes$href(
 					$author$project$Router$href($author$project$Router$Projects)),
 					A2($elm$html$Html$Attributes$attribute, 'role', 'listitem'),
-					A2($elm$html$Html$Attributes$attribute, 'aria-label', proj.S + (': ' + proj.X))
+					A2($elm$html$Html$Attributes$attribute, 'aria-label', proj._ + (': ' + proj.am))
 				]),
 			_List_fromArray(
 				[
@@ -10526,7 +10476,7 @@ var $author$project$Pages$Home$workRow = F2(
 							$elm$html$Html$text(
 							$author$project$Pages$Home$pad2(i + 1))
 						])),
-					$author$project$Components$Ui$statusLed(proj.M),
+					$author$project$Components$Ui$statusLed(proj.aP),
 					A2(
 					$elm$html$Html$span,
 					_List_fromArray(
@@ -10535,7 +10485,7 @@ var $author$project$Pages$Home$workRow = F2(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text(proj.S)
+							$elm$html$Html$text(proj._)
 						])),
 					A2(
 					$elm$html$Html$span,
@@ -10545,7 +10495,7 @@ var $author$project$Pages$Home$workRow = F2(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text(proj.X)
+							$elm$html$Html$text(proj.am)
 						])),
 					A2(
 					$elm$html$Html$span,
@@ -10559,7 +10509,7 @@ var $author$project$Pages$Home$workRow = F2(
 							A2(
 								$elm$core$String$join,
 								' · ',
-								A2($elm$core$List$take, 3, proj.W)))
+								A2($elm$core$List$take, 3, proj.aj)))
 						])),
 					A2(
 					$elm$html$Html$span,
@@ -10612,7 +10562,7 @@ var $author$project$Pages$Home$fnRow = function (post) {
 				$elm$html$Html$Attributes$class('fn-row'),
 				$elm$html$Html$Attributes$href(
 				$author$project$Router$href(
-					$author$project$Router$Post(post.an)))
+					$author$project$Router$Post(post.ai)))
 			]),
 		_List_fromArray(
 			[
@@ -10625,7 +10575,7 @@ var $author$project$Pages$Home$fnRow = function (post) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(
-						$author$project$Utils$Date$display(post.an))
+						$author$project$Utils$Date$display(post.ai))
 					])),
 				A2(
 				$elm$html$Html$span,
@@ -10731,12 +10681,11 @@ var $author$project$Content$Site$spec = _List_fromArray(
 	[
 		{bc: 'focus', bC: 'robotics · ml systems'},
 		{bc: 'languages', bC: 'zig · c · cuda · python'},
-		{bc: 'hardware', bC: 'stm32 · scopes · solder'},
-		{bc: 'os', bC: 'linux'},
-		{bc: 'tracking', bC: 'none. zero scripts.'}
+		{bc: 'hardware', bC: 'stm32 · scopes'},
+		{bc: 'os', bC: 'linux'}
 	]);
-var $author$project$Content$Site$statement = 'I build machines, systems, and ideas.';
-var $author$project$Content$Site$uptimeLine = 'est. 2006 · self-taught · no institution was consulted';
+var $author$project$Content$Site$statement = 'I like computers.';
+var $author$project$Content$Site$uptimeLine = 'est. 2006 · self-taught';
 var $author$project$Pages$Home$hero = A2(
 	$elm$html$Html$section,
 	_List_fromArray(
@@ -10819,7 +10768,7 @@ var $author$project$Pages$Home$hero = A2(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text('Curious enough to take things apart. Arrogant enough to rebuild them.\u000ADisciplined enough to document what happens. This site is the documentation half —\u000Aa lab notebook of middleware, runtimes, world models, embedded hardware,\u000Aand the failures between the commits.')
+							$elm$html$Html$text('To win, you have to be arrogant enough to think you can —\u000Ahumble enough to learn from your peers and compititors, passionate and curious enough to do this for years.')
 						])),
 					A2(
 					$elm$html$Html$div,
@@ -10959,17 +10908,17 @@ var $author$project$Pages$Home$latestSlug = function (_v0) {
 	var _v1 = $elm$core$List$head($author$project$Content$Posts$posts);
 	if (!_v1.$) {
 		var p = _v1.a;
-		return p.an;
+		return p.ai;
 	} else {
 		return '';
 	}
 };
 var $author$project$Content$Site$nowFeed = _List_fromArray(
 	[
-		{au: 'shared-memory transport + io_uring — making robots talk faster than they can move', M: 'active', Y: 'glu'},
-		{au: 'latent rollouts, jepa-style objectives — can a network imagine physics?', M: 'researching', Y: 'world models'},
-		{au: 'redesign around a graph scheduler that owns memory lifetimes', M: 'building', Y: 'plast v2'},
-		{au: 'state-space, LQR, and what PID hides from you', M: 'studying', Y: 'control theory'}
+		{at: 'shared-memory transport + io_uring — making robots talk faster than they can move', aP: 'active', R: 'glu'},
+		{at: 'latent rollouts, jepa-style objectives — can a network imagine physics?', aP: 'studying', R: 'world models'},
+		{at: 'researching about how to remove modality gap and learn perfect multimodal representation for improving robot perception', aP: 'researching', R: 'multimodal representation learning & modality gap'},
+		{at: 'state-space, LQR, and what PID hides from you', aP: 'studying', R: 'control theory'}
 	]);
 var $author$project$Pages$Home$nowItem = function (item) {
 	return A2(
@@ -10996,9 +10945,9 @@ var $author$project$Pages$Home$nowItem = function (item) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(item.Y)
+								$elm$html$Html$text(item.R)
 							])),
-						$author$project$Components$Ui$statusLed(item.M)
+						$author$project$Components$Ui$statusLed(item.aP)
 					])),
 				A2(
 				$elm$html$Html$p,
@@ -11008,7 +10957,7 @@ var $author$project$Pages$Home$nowItem = function (item) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(item.au)
+						$elm$html$Html$text(item.at)
 					]))
 			]));
 };
@@ -11424,8 +11373,8 @@ var $author$project$Markdown$headings = function (src) {
 				return $elm$core$Maybe$Just(
 					{
 						a8: $author$project$Markdown$slug(title),
-						aB: _Utils_eq(lvl, base),
-						aD: A2($author$project$Markdown$renderedLevel, base, lvl),
+						aA: _Utils_eq(lvl, base),
+						aC: A2($author$project$Markdown$renderedLevel, base, lvl),
 						aT: $author$project$Markdown$plainTitle(title)
 					});
 			} else {
@@ -11528,18 +11477,18 @@ var $author$project$Pages$Post$neighboursOf = function (slug) {
 			$elm$core$List$filter,
 			function (_v1) {
 				var p = _v1.b;
-				return _Utils_eq(p.an, slug);
+				return _Utils_eq(p.ai, slug);
 			},
 			indexed));
 	if (!_v0.$) {
 		var _v2 = _v0.a;
 		var i = _v2.a;
 		return {
-			ag: A2($author$project$Pages$Post$lookupAt, i - 1, indexed),
-			aj: A2($author$project$Pages$Post$lookupAt, i + 1, indexed)
+			aa: A2($author$project$Pages$Post$lookupAt, i - 1, indexed),
+			ad: A2($author$project$Pages$Post$lookupAt, i + 1, indexed)
 		};
 	} else {
-		return {ag: $elm$core$Maybe$Nothing, aj: $elm$core$Maybe$Nothing};
+		return {aa: $elm$core$Maybe$Nothing, ad: $elm$core$Maybe$Nothing};
 	}
 };
 var $author$project$Pages$Post$pad2 = function (n) {
@@ -11565,7 +11514,7 @@ var $author$project$Pages$Post$view = F2(
 			A2(
 				$elm$core$List$filter,
 				function (p) {
-					return _Utils_eq(p.an, slug);
+					return _Utils_eq(p.ai, slug);
 				},
 				$author$project$Content$Posts$posts));
 		if (_v0.$ === 1) {
@@ -11577,7 +11526,7 @@ var $author$project$Pages$Post$view = F2(
 			var toc = A2(
 				$elm$core$List$filter,
 				function ($) {
-					return $.aB;
+					return $.aA;
 				},
 				$author$project$Markdown$headings(bodySrc));
 			return A2(
@@ -11642,7 +11591,7 @@ var $author$project$Pages$Post$view = F2(
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class(
-												'status st-' + $author$project$Types$statusClass(post.M))
+												'status st-' + $author$project$Types$statusClass(post.aP))
 											]),
 										_List_fromArray(
 											[
@@ -11654,7 +11603,7 @@ var $author$project$Pages$Post$view = F2(
 														A2($elm$html$Html$Attributes$attribute, 'aria-hidden', 'true')
 													]),
 												_List_Nil),
-												$elm$html$Html$text(post.M)
+												$elm$html$Html$text(post.aP)
 											]))
 									])),
 								A2(
@@ -11672,7 +11621,7 @@ var $author$project$Pages$Post$view = F2(
 									[
 										{
 										bc: 'published',
-										bC: $author$project$Utils$Date$display(post.an)
+										bC: $author$project$Utils$Date$display(post.ai)
 									},
 										{
 										bc: 'reading',
@@ -11707,7 +11656,7 @@ var $author$project$Pages$Post$view = F2(
 									[
 										A2(
 										$author$project$Markdown$render,
-										{as: handlers.as},
+										{ar: handlers.ar},
 										bodySrc)
 									])),
 								($elm$core$List$length(toc) >= 2) ? A2($author$project$Pages$Post$navToc, handlers.bA, toc) : $elm$html$Html$text('')
@@ -11743,7 +11692,7 @@ var $author$project$Pages$Post$view = F2(
 							_List_fromArray(
 								[
 									function () {
-									var _v1 = neighbours.aj;
+									var _v1 = neighbours.ad;
 									if (!_v1.$) {
 										var older = _v1.a;
 										return A2(
@@ -11753,7 +11702,7 @@ var $author$project$Pages$Post$view = F2(
 													$elm$html$Html$Attributes$class('nb nb-prev'),
 													$elm$html$Html$Attributes$href(
 													$author$project$Router$href(
-														$author$project$Router$Post(older.an)))
+														$author$project$Router$Post(older.ai)))
 												]),
 											_List_fromArray(
 												[
@@ -11827,7 +11776,7 @@ var $author$project$Pages$Post$view = F2(
 								_List_fromArray(
 									[
 										function () {
-										var _v2 = neighbours.ag;
+										var _v2 = neighbours.aa;
 										if (!_v2.$) {
 											var newer = _v2.a;
 											return A2(
@@ -11837,7 +11786,7 @@ var $author$project$Pages$Post$view = F2(
 														$elm$html$Html$Attributes$class('nb nb-next'),
 														$elm$html$Html$Attributes$href(
 														$author$project$Router$href(
-															$author$project$Router$Post(newer.an)))
+															$author$project$Router$Post(newer.ai)))
 													]),
 												_List_fromArray(
 													[
@@ -11891,7 +11840,7 @@ var $author$project$Pages$Writing$entry = function (post) {
 				$elm$html$Html$Attributes$class('fni-row'),
 				$elm$html$Html$Attributes$href(
 				$author$project$Router$href(
-					$author$project$Router$Post(post.an)))
+					$author$project$Router$Post(post.ai)))
 			]),
 		_List_fromArray(
 			[
@@ -11929,12 +11878,12 @@ var $author$project$Pages$Writing$entry = function (post) {
 						_List_fromArray(
 							[
 								$elm$html$Html$Attributes$datetime(
-								$author$project$Utils$Date$iso(post.an))
+								$author$project$Utils$Date$iso(post.ai))
 							]),
 						_List_fromArray(
 							[
 								$elm$html$Html$text(
-								$author$project$Utils$Date$display(post.an))
+								$author$project$Utils$Date$display(post.ai))
 							])),
 						A2(
 						$elm$html$Html$span,
@@ -11954,11 +11903,11 @@ var $author$project$Pages$Writing$entry = function (post) {
 						_List_fromArray(
 							[
 								$elm$html$Html$Attributes$class(
-								'fni-status st-' + $author$project$Types$statusClass(post.M))
+								'fni-status st-' + $author$project$Types$statusClass(post.aP))
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(post.M)
+								$elm$html$Html$text(post.aP)
 							]))
 					])),
 				A2(
@@ -12139,7 +12088,7 @@ var $author$project$Main$pageView = function (model) {
 			var slug = _v0.a;
 			return A2(
 				$author$project$Pages$Post$view,
-				{as: $author$project$Main$CopyCode, bA: $author$project$Main$ScrollToId},
+				{ar: $author$project$Main$CopyCode, bA: $author$project$Main$ScrollToId},
 				slug);
 		case 3:
 			return $author$project$Pages$Projects$projectsView(0);
@@ -12148,7 +12097,7 @@ var $author$project$Main$pageView = function (model) {
 		case 5:
 			return $author$project$Main$aboutPage;
 		default:
-			return $author$project$Pages$NotFound$view(model.U);
+			return $author$project$Pages$NotFound$view(model.P);
 	}
 };
 var $author$project$Main$OverlayClick = {$: 11};
@@ -12206,7 +12155,7 @@ var $author$project$Components$Palette$itemView = F5(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text(s.aC)
+							$elm$html$Html$text(s.aB)
 						])),
 					A2(
 					$elm$html$Html$span,
@@ -12226,7 +12175,7 @@ var $author$project$Components$Palette$itemView = F5(
 						]),
 					_List_fromArray(
 						[
-							$elm$html$Html$text(s.au)
+							$elm$html$Html$text(s.at)
 						]))
 				]));
 	});
@@ -12481,7 +12430,7 @@ var $author$project$Router$title = function (route) {
 				A2(
 					$elm$core$List$filter,
 					function (p) {
-						return _Utils_eq(p.an, slug);
+						return _Utils_eq(p.ai, slug);
 					},
 					$author$project$Content$Posts$posts));
 			if (!_v1.$) {

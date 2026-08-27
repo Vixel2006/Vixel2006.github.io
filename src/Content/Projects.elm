@@ -9,32 +9,33 @@ projects : List Project
 projects =
     [ { id = "glu"
       , name = "glu"
-      , tagline = "Robotics communication infrastructure. One binary, predictable latency, no daemon to negotiate with."
+      , tagline = "Robotics communication infrastructure. One binary, predictable latency."
       , domain = "robotics middleware"
       , lang = "zig"
       , status = "active"
       , period = "2026—"
       , url = "https://github.com/Vixel2006/glu"
       , urlLabel = "source"
-      , why = """ROS 2 is incredibly capable, but it drags a decade of abstraction and configuration with it. I wanted to find out how small a robotics communication system could be if it were designed around explicit performance instead of layers of middleware."""
+      , why = """I was getting into robotics programming for the first time, I tried to learn ROS 2, I found it very boring and complex, with a lot of abstractions, so I thought I can make a much simpler version that is performant, reliable, and lightweight, so I'm building glu."""
       , engineering =
             [ "Shared-memory transport between processes on the same host — zero-copy where it matters most."
             , "io_uring on Linux for network I/O; TCP when delivery matters, UDP when latency does."
             , "Peer discovery, so nodes find each other without a central master process."
             , "Message schemas defined once and turned into code — types checked at compile time, not at runtime."
+            , "A simple determinstic daemon for discovery and managing the nodes."
             ]
-      , stack = [ "zig", "posix", "io_uring", "shared memory", "tcp / udp", "codegen" ]
+      , stack = [ "zig", "posix", "io_uring", "shared memory", "tcp / udp", "codegen", "linux daemon" ]
       }
     , { id = "plast"
       , name = "plast"
       , tagline = "A deep learning engine written from scratch — no framework magic."
       , domain = "deep learning systems"
       , lang = "c / cuda"
-      , status = "redesigning"
+      , status = "maybe done"
       , period = "2025—"
       , url = "https://github.com/Vixel2006/plast"
       , urlLabel = "source"
-      , why = """I didn't want to treat the training stack as a black box. Building my own means every autograd edge, kernel launch and allocator decision passes through my hands — which turns "deep learning frameworks" from magic into machinery I fully understand."""
+      , why = """I didn't want to treat the training stack as a black box. Building my own means every autograd edge, kernel launch and allocator decision passes through my hands — which turns "deep learning frameworks" from magic into machinery I fully understand, now that I have much more experience I can think of million better ways to make it a better library, so maybe I will return to it someday in the future"""
       , engineering =
             [ "Hand-optimized CUDA kernels instead of vendor calls everywhere."
             , "A graph-based scheduler that owns execution order and memory lifetimes."
@@ -42,24 +43,6 @@ projects =
             , "Autograd built from first principles, not bolted on."
             ]
       , stack = [ "c", "cuda", "autograd", "jit" ]
-      }
-    , { id = "argos"
-      , name = "argos"
-      , tagline = "Real-time API security that parses traffic at line rate."
-      , domain = "security infrastructure"
-      , lang = "go / c"
-      , status = "production"
-      , period = "2026"
-      , url = "https://argossecops.com"
-      , urlLabel = "argossecops.com"
-      , why = """Started as a hackathon project that deserved to lose. We stripped the AI theater and rebuilt it as an actual engine: a zero-allocation ingestion pipeline feeding a detection core designed to parse traffic at line rate, not after the incident."""
-      , engineering =
-            [ "Zero-allocation ingestion pipeline for high-concurrency traffic."
-            , "Detection cascade: fast regex pass, statistical scoring, ML only where it earns its latency."
-            , "Language-specific SDK middlewares so apps stream events without rerouting their network."
-            , "Native C core for the hot path; Go for orchestration."
-            ]
-      , stack = [ "go", "kafka", "redis", "c" ]
       }
     , { id = "grf"
       , name = "grf"

@@ -6,45 +6,16 @@
     <atom:link href="https://vixel2006.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Machines, systems, and ideas. A lab notebook of robotics middleware, deep learning runtimes, world models and embedded electronics.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Aug 2026 16:04:26 GMT</lastBuildDate>
-    <item>
-      <title>I read the code.</title>
-      <link>https://vixel2006.github.io/blog/#/writing/2026-07-21-i-read-code</link>
-      <guid isPermaLink="false">2026-07-21-i-read-code</guid>
-      <pubDate>Tue, 21 Jul 2026 12:00:00 +0000</pubDate>
-      <description>“I read the code” is the highest-signal advice in software. A protocol for reading source like an engineer instead of a tourist.</description>
-      <category>craft</category>
-      <category>reading-code</category>
-    </item>
-    <item>
-      <title>Re-designing Plast for a more elegant solution</title>
-      <link>https://vixel2006.github.io/blog/#/writing/2026-07-18-redesigning-plast</link>
-      <guid isPermaLink="false">2026-07-18-redesigning-plast</guid>
-      <pubDate>Sat, 18 Jul 2026 12:00:00 +0000</pubDate>
-      <description>Treating the training stack as a black box stopped being fun. Notes from rebuilding a deep learning engine from autograd up.</description>
-      <category>plast</category>
-      <category>deep-learning</category>
-      <category>cuda</category>
-    </item>
+    <lastBuildDate>Thu, 27 Aug 2026 15:18:07 GMT</lastBuildDate>
     <item>
       <title>Why I fell in love with Zig</title>
-      <link>https://vixel2006.github.io/blog/#/writing/2026-07-09-zig</link>
-      <guid isPermaLink="false">2026-07-09-zig</guid>
-      <pubDate>Thu, 09 Jul 2026 12:00:00 +0000</pubDate>
+      <link>https://vixel2006.github.io/blog/#/writing/2026-08-27-zig</link>
+      <guid isPermaLink="false">2026-08-27-zig</guid>
+      <pubDate>Thu, 27 Aug 2026 12:00:00 +0000</pubDate>
       <description>Comptime, no hidden control flow, errors as values — notes on why Zig feels like the first language that respects the programmer since C.</description>
       <category>zig</category>
       <category>systems</category>
       <category>languages</category>
-    </item>
-    <item>
-      <title>What I Learnt Building a SaaS</title>
-      <link>https://vixel2006.github.io/blog/#/writing/2026-06-20-what-I-have-learnt-building-a-SaaS-startup</link>
-      <guid isPermaLink="false">2026-06-20-what-I-have-learnt-building-a-SaaS-startup</guid>
-      <pubDate>Sat, 20 Jun 2026 12:00:00 +0000</pubDate>
-      <description>Five months inside a startup taught me what the ecosystem actually optimizes for. Field notes from stripping an AI-SIEM hackathon demo down into a real engine.</description>
-      <category>startups</category>
-      <category>systems</category>
-      <category>culture</category>
     </item>
   </channel>
 </rss>

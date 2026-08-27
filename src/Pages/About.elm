@@ -7,7 +7,7 @@ touching layout code.
 
 about : String
 about =
-    """I taught myself to write code at 11, calculus at 14, Lagrangian mechanics at 16. Since then I've lived somewhere between C, Zig, CUDA and whatever problem refuses to leave me alone. In two years college takes the "self-taught" label away from me — I intend to make the most of it while it's still mine.
+    """A self-thought nerd, I started programming at late 11, studied calculus, and linear algebra at 14, I love the process of writing low-level code that is close to the machine where every line of code really matter, I'm interesting in physical ai, which is basically how to make ai do the boring stuff for you, currently researching different ways to make neural networks learn a multimodal joint representation so that we can fuse agents' inputs from different sensors into a latent space to plan and take actions in.
 
 I build [glu](https://github.com/Vixel2006/glu), a robotics middleware in Zig, and [plast](https://github.com/Vixel2006/plast), a deep learning engine in C/CUDA. The long game is a software stack for robotics built from the ground up — no bloat, no abstractions that leak, no corporate rot — with machine intelligence that actually understands physics running on top of it: world models, representation learning, agents that model the world rather than paraphrase the internet.
 
@@ -17,26 +17,17 @@ This site is my lab notebook. What I'm building, breaking, reading and failing a
 
 ## Why robotics
 
-Software that only lives on a screen always felt like half the story. Robots force every abstraction you write to survive contact with physics — timing budgets, sensor noise, gravity. That constraint is exactly what makes the engineering interesting: you can't argue your way out of a bug that ends with a broken actuator.
-
-## Why systems
-
-Because performance is a design decision, not an afterthought. I like being close enough to the metal to know what the machine is actually doing — allocators, schedulers, syscalls, cache lines. Understanding the whole stack is the difference between *using* tools and *making* them. Zig is currently my favorite place to stand: C-level control, compile-time metaprogramming, and no hidden control flow.
-
-## Why AI
-
-Not wrappers — foundations. I care about the training systems, the architectures, and eventually models that hold a predictive representation of the world good enough to act in it. Deep learning gave us perception; world models are how it gets imagination. Someone has to build the infrastructure that makes those trainable at robot timescales — I want to be one of those someones.
+I have always been interested in a lot of stuff, I want to write unix systems code, embedded code, design electronics, and experiment with neural networks, which makes robotics a great fit for me, and how useful and transformative this technology can be is a cherry of the top for me tbh.
 
 > NOTE: currently on the bench — STM32 boards, a logic analyzer, and more jumper wires than any one desk should contain. Control theory textbooks are winning so far.
 
-## Things I'm learning right now
+## Things I'm learning right now (reading papers, doing projects is the only way you get better)
 
 - Embedded systems & electronics
 - Control theory
 - Reinforcement learning
 - World models & representation learning
 - Robotics middleware design
-- Compilers, slowly and stubbornly
 
 ## What I want to build eventually
 
@@ -53,4 +44,4 @@ The fastest way to reach me is [email](mailto:yusufshihata2006@gmail.com). I'm a
 > webmaster: vixel
 > pgp: ask nicely
 > uptime: since 2006
-> theme: catppuccin mocha, forever"""
+> personality: hacker, forever"""

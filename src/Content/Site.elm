@@ -15,21 +15,20 @@ domains =
 
 statement : String
 statement =
-    "I build machines, systems, and ideas."
+    "I like computers."
 
 
 uptimeLine : String
 uptimeLine =
-    "est. 2006 · self-taught · no institution was consulted"
+    "est. 2006 · self-taught"
 
 
 spec : List { key : String, value : String }
 spec =
     [ { key = "focus", value = "robotics · ml systems" }
     , { key = "languages", value = "zig · c · cuda · python" }
-    , { key = "hardware", value = "stm32 · scopes · solder" }
+    , { key = "hardware", value = "stm32 · scopes" }
     , { key = "os", value = "linux" }
-    , { key = "tracking", value = "none. zero scripts." }
     ]
 
 
@@ -41,11 +40,11 @@ nowFeed =
       }
     , { topic = "world models"
       , detail = "latent rollouts, jepa-style objectives — can a network imagine physics?"
-      , status = "researching"
+      , status = "studying"
       }
-    , { topic = "plast v2"
-      , detail = "redesign around a graph scheduler that owns memory lifetimes"
-      , status = "building"
+    , { topic = "multimodal representation learning & modality gap"
+      , detail = "researching about how to remove modality gap and learn perfect multimodal representation for improving robot perception"
+      , status = "researching"
       }
     , { topic = "control theory"
       , detail = "state-space, LQR, and what PID hides from you"

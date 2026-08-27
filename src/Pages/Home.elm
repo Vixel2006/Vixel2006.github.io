@@ -41,10 +41,8 @@ hero =
             , p [ Attr.class "hero-statement" ] [ text Site.statement ]
             , p [ Attr.class "hero-domains" ] [ text Site.domains ]
             , p [ Attr.class "hero-lede" ]
-                [ text """Curious enough to take things apart. Arrogant enough to rebuild them.
-Disciplined enough to document what happens. This site is the documentation half —
-a lab notebook of middleware, runtimes, world models, embedded hardware,
-and the failures between the commits."""
+                [ text """To win, you have to be arrogant enough to think you can —
+humble enough to learn from your peers and compititors, passionate and curious enough to do this for years."""
                 ]
             , div [ Attr.class "hero-cta" ]
                 [ a [ Attr.class "cta cta-solid", Attr.href (Router.href Writing) ]
