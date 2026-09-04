@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{site_name}}</title>
+<link rel="stylesheet" href="site.css">
+<link rel="alternate" type="application/rss+xml" title="Subscribe" href="feed.xml">
+<link rel="icon" href="favicon.png">
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand">{{site_name}}</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Writing</a>
+    <a href="projects.html">Projects</a>
+    <a href="feed.xml">Subscribe</a>
+  </div>
+</nav>
+<main>
+{{about_block}}
+<ul class="post-list">
+{{post_list}}
+</ul>
+</main>
+</body>
+</html>

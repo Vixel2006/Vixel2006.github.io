@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{post_title}} &mdash; {{site_name}}</title>
+<meta name="description" content="{{post_description}}">
+<link rel="stylesheet" href="{{base}}site.css">
+<link rel="stylesheet" href="{{base}}hljs-catppuccin.css">
+<link rel="alternate" type="application/rss+xml" title="Subscribe" href="{{base}}feed.xml">
+<link rel="icon" href="{{base}}favicon.png">
+</head>
+<body>
+<nav>
+  <a href="{{base}}index.html" class="nav-brand">{{site_name}}</a>
+  <div class="nav-links">
+    <a href="{{base}}index.html">Writing</a>
+    <a href="{{base}}projects.html">Projects</a>
+    <a href="{{base}}feed.xml">Subscribe</a>
+  </div>
+</nav>
+<main class="article">
+<article>
+<header class="post-header">
+<h1>{{post_title}}</h1>
+<div class="post-meta">
+{{post_date}} {{post_tags}}
+</div>
+</header>
+<div class="post-body md">
+{{post_content}}
+</div>
+</article>
+</main>
+<script src="{{base}}highlight.min.js"></script>
+<script src="{{base}}hljs-langs.js"></script>
+<script>hljs.highlightAll();</script>
+<script>
+document.querySelectorAll('.sn-marker').forEach(function(m){
+  m.addEventListener('click', function(e){ e.preventDefault(); m.closest('.sidenote').classList.add('open'); });
+});
+document.querySelectorAll('.sn-close').forEach(function(c){
+  c.addEventListener('click', function(e){ e.preventDefault(); c.closest('.sidenote').classList.remove('open'); });
+});
+</script>
+</body>
+</html>
