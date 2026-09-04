@@ -2,7 +2,7 @@
     .name = .blog_sitegen,
     .fingerprint = 0x7c53b9ffd9d33a21,
     .version = "0.1.0",
-    .minimum_zig_version = "0.14.0",
+    .minimum_zig_version = "0.16.0",
     .paths = .{
         "build.zig",
         "build.zig.zon",
