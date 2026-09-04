@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects &mdash; VIXEL</title>
+    <meta name="description" content="things I build" />
+    <link rel="stylesheet" href="site.css" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="Subscribe"
+      href="feed.xml"
+    />
+    <link rel="icon" href="favicon.png" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-brand">VIXEL</a>
+      <div class="nav-links">
+        <a href="index.html">Writing</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="feed.xml">Subscribe</a>
+      </div>
+    </nav>
+    <main>
+      <pre class="about">
+<span class="about-cm"># projects</span>
+<span class="about-label">things I build</span> open source, usually low-level. robotics, systems, ML infrastructure. if it talks to hardware or moves data fast, i'm probably interested.
+</pre>
+
+      <section class="project-list">
+<article class="project-card">
+<div class="project-header">
+<h2 class="project-name"><a href="https://github.com/Vixel2006/glu">glu</a></h2>
+<div class="project-header-right">
+<a href="https://github.com/Vixel2006/glu" class="project-source">source &nearr;</a>
+<span class="project-timeline">2026 — present</span>
+</div>
+</div>
+<div class="project-body">
+<p class="project-tagline">Robotics communication infrastructure. One binary, predictable latency.</p>
+<p class="project-desc">I was getting into robotics programming for the first time, I tried to learn ROS 2, I found it very boring and complex, with a lot of abstractions, so I thought I can make a much simpler version that is performant, reliable, and lightweight, so I'm building glu.</p>
+<ul class="project-features">
+<li>it must be just a <strong>robotics communication middleware</strong>, not an <strong>OS</strong>.</li>
+<li>it must be one lightweight binary that can be used in compute constrained systems, with no abstraction overhead and massive layers to setup.</li>
+<li>it must be very easy and boring to use, if you have to think about communication while using it instead on working on the robot logic and brain then <strong>glu</strong> had failed.</li>
+<li>it must scale well for real-world massive projects.</li>
+</ul>
+</div>
+</article>
+<article class="project-card">
+<div class="project-header">
+<h2 class="project-name"><a href="https://github.com/Vixel2006/GRF">grf</a></h2>
+<div class="project-header-right">
+<a href="https://github.com/Vixel2006/GRF" class="project-source">preprint &nearr;</a>
+<span class="project-timeline">May 2025 - July 2025</span>
+</div>
+</div>
+<div class="project-body">
+<p class="project-tagline">Multimodal fusion layers with linear-scaling attention for vision-language models.</p>
+<p class="project-desc">Cross-modal attention gets expensive quadratically as you fuse longer sequences. GRF is an attempt at fusion layers that scale linearly without gutting downstream quality — explored through a pre-print on multimodal fusion in transformer architectures.</p>
+<ul class="project-features">
+<li>a not so bad trial to make multimodal models more compute efficient.</li>
+</ul>
+</div>
+</article>
+</section>
+
+    </main>
+  </body>
+</html>

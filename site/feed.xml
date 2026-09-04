@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+  <title>VIXEL</title>
+  <link>https://vixel2006.github.io/blog</link>
+  <description>machines, systems, ideas</description>
+  <language>en</language>
+  <managingEditor>Vixel</managingEditor>
+    <item>
+      <title>You must try zig</title>
+      <link>https://vixel2006.github.io/blog/posts/2026-08-27-zig.html</link>
+      <description>Comptime, no hidden control flow, errors as values — notes on why Zig feels like the first language that respects the programmer since C.</description>
+      <pubDate>2026-08-27</pubDate>
+    </item>
+
+</channel>
+</rss>

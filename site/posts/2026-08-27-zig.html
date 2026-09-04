@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You must try zig &mdash; VIXEL</title>
+<meta name="description" content="Comptime, no hidden control flow, errors as values — notes on why Zig feels like the first language that respects the programmer since C.">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../hljs-catppuccin.css">
+<link rel="alternate" type="application/rss+xml" title="Subscribe" href="../feed.xml">
+<link rel="icon" href="../favicon.png">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-brand">VIXEL</a>
+  <div class="nav-links">
+    <a href="../index.html">Writing</a>
+    <a href="../projects.html">Projects</a>
+    <a href="../feed.xml">Subscribe</a>
+  </div>
+</nav>
+<main class="article">
+<article>
+<header class="post-header">
+<h1>You must try zig</h1>
+<div class="post-meta">
+2026-08-27 <span class="tag">zig</span>, <span class="tag">systems</span>, <span class="tag">languages</span>
+</div>
+</header>
+<div class="post-body md">
+<p>Over the past 2 months or so, I have been trying to learn zig as a new systems programming language to try. I mainly got into it after I heard about the princples this language stands for which is <span class="accent">simplicity</span>, <span class="accent">comptime</span> for metaprogramming, and ofc the fact that it can be used as a <span class="accent">c compiler</span> which means that you can integrate c libraries with ease.</p>
+<p>The last language I learnt before zig was <span class="accent">Rust</span>, which I believe is actually a great language with a lot of great ideas, and it got a lot of people into caring about writing performant software, but tbh it wasn't a language that I would enjoy write, and debug code in everyday, as it seems like a <span class="accent">c++</span> successor than a <span class="accent">c</span> successor. which has a very big flaw, which is that a good tool should be easy to use, and learn. also I believe that there is only a small subset of language features that are really necessary to write good code. the rest are basically <span class="accent">distractions</span>, I want to think about the problem I'm working on and how to implement it in the most <span class="accent">performant, safe, and intuitive to use</span> solution to it, not about what is the best language feature to use here, or the best abstraction I can use to make the codebase full of indirection and very hard to navigate.</p>
+<p>So, what makes Zig so great, besides its simplicity?</p>
+<hr>
+<h2 id="comptime"><a href="#comptime">comptime</a></h2>
+<p><code>comptime</code> is absolutely incredible. It is a massive upgrade over C/C++ macros and Rust's <code>proc_macro</code>. It is so intuitive and easy to use because it flows naturally with the rest of the program.</p>
+<h3 id="c-approach-preprocessor-magic"><a href="#c-approach-preprocessor-magic">C Approach: Preprocessor Magic</a></h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+// The &quot;Macro Template&quot;
+#define DECLARE_STACK(Type, Name, Capacity) \
+    typedef struct { \
+        Type data[Capacity]; \
+        size_t top; \
+    } Name; \
+    \
+    static inline void Name##_push(Name* s, Type item) { \
+        if (s-&gt;top &lt; Capacity) { \
+            s-&gt;data[s-&gt;top++] = item; \
+        } \
+    } \
+    \
+    static inline Type Name##_pop(Name* s) { \
+        return s-&gt;data[--s-&gt;top]; \
+    }
+
+// Generating a specific type: IntStack
+DECLARE_STACK(int, IntStack, 10)
+
+int main() {
+    IntStack stack = { .top = 0 };
+    IntStack_push(&amp;stack, 42);
+    printf(&quot;%d\n&quot;, IntStack_pop(&amp;stack));
+    return 0;
+}
+</code></pre>
+<h3 id="rust-approach-procedural-macros"><a href="#rust-approach-procedural-macros">Rust Approach: Procedural Macros</a></h3>
+<pre><code class="language-rust">extern crate proc_macro;
+use proc_macro::TokenStream;
+use quote::quote;
+use syn::{parse_macro_input, Expr, Type, parse::Parse, parse::ParseStream, Token};
+
+// A custom parser struct to handle: Stack!(i32, 10)
+struct StackArgs {
+    ty: Type,
+    _comma: Token![,],
+    cap: Expr,
+}
+
+impl Parse for StackArgs {
+    fn parse(input: ParseStream) -&gt; syn::Result&lt;Self&gt; {
+        Ok(StackArgs {
+            ty: input.parse()?,
+            _comma: input.parse()?,
+            cap: input.parse()?,
+        })
+    }
+}
+
+#[proc_macro]
+pub fn make_stack(input: TokenStream) -&gt; TokenStream {
+    let StackArgs { ty, cap, .. } = parse_macro_input!(input as StackArgs);
+
+    let expanded = quote! {
+        struct Stack {
+            data: [#ty; #cap],
+            top: usize,
+        }
+
+        impl Stack {
+            fn new() -&gt; Self { Self { data: [0; #cap], top: 0 } } // Simplification
+            fn push(&amp;mut self, item: #ty) {
+                if self.top &lt; #cap {
+                    self.data[self.top] = item;
+                    self.top += 1;
+                }
+            }
+            fn pop(&amp;mut self) -&gt; #ty {
+                self.top -= 1;
+                self.data[self.top]
+            }
+        }
+    };
+    TokenStream::from(expanded)
+}
+
+// Generates the struct and implementation at compile time
+make_stack!(i32, 10);
+
+fn main() {
+    let mut s = Stack::new();
+    s.push(100);
+    println!(&quot;{}&quot;, s.pop());
+}
+</code></pre>
+<h3 id="zig-approach-comptime"><a href="#zig-approach-comptime">Zig Approach: comptime</a></h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+
+// Just a normal function, but it returns a `type`
+// and takes compile-time arguments.
+fn Stack(comptime T: type, comptime capacity: usize) type {
+    return struct {
+        data: [capacity]T = undefined,
+        top: usize = 0,
+
+        const Self = @this();
+
+        pub fn push(self: *Self, item: T) void {
+            if (self.top &lt; capacity) {
+                self.data[self.top] = item;
+                self.top += 1;
+            }
+        }
+
+        pub fn pop(self: *Self) T {
+            self.top -= 1;
+            return self.data[self.top];
+        }
+    };
+}
+
+pub fn main() !void {
+    // Instantiating the type naturally
+    var my_stack = Stack(i32, 10){};
+
+    my_stack.push(1337);
+    std.debug.print(&quot;{d}\n&quot;, .{my_stack.pop()});
+}
+</code></pre>
+<p>If you have any taste for programming, you can clearly see that the <code>comptime</code> solution is miles ahead in terms of elegance, it's much more intuitive and easier to write and read.</p>
+<hr>
+<h2 id="how-zig-proved-that-adding-more-abstractions-isn-t-the-answer"><a href="#how-zig-proved-that-adding-more-abstractions-isn-t-the-answer">How Zig Proved That Adding More Abstractions Isn't the Answer</a></h2>
+<p>It is fascinating to me how <span class="accent">Rust</span> and <span class="accent">C++</span> tried to "fix" <span class="accent">C</span> by stacking layers of abstraction on top of it, only to end up being bloated, complicated, and a chore to read and write. Meanwhile, Zig took a different path: it removed some of the few implicit abstractions <span class="accent">C</span> actually has (like hidden memory allocations and magic I/O), giving us a language that is both incredibly simple and fun to work with.</p>
+<p>By now, it's probably obvious that I'm a massive fan of having no hidden allocations, no hidden control flow, and no preprocessor magic. This philosophy makes your code predictable and debugging infinitely easier.</p>
+<h3 id="explicit-memory-allocation"><a href="#explicit-memory-allocation">Explicit Memory Allocation</a></h3>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+
+pub fn main() !void {
+    // 1. Explicit Memory Strategy
+    // We explicitly choose a General Purpose Allocator. The runtime does not hide this.
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit(); // Enforce leak checking at scope exit
+    const allocator = gpa.allocator();
+
+    // 2. Explicit Dependency Injection
+    // The ArrayList cannot exist in a vacuum; it *must* hold a reference to our allocator.
+    var list = std.ArrayList(i32).init(allocator);
+    defer list.deinit(); // Explicit cleanup
+
+    // 3. Explicit Control Flow and Error Handling
+    // Appending can fail if the system runs out of memory.
+    // Zig forces you to acknowledge this with the `try` keyword.
+    // There are no invisible exceptions—it explicitly bubbles up the call stack.
+    try list.append(42);
+    try list.append(1337);
+
+    std.debug.print(&quot;Elements: {any}\n&quot;, .{list.items});
+}
+</code></pre>
+<p>Defining your allocation strategy explicitly makes managing memory straightforward, and the <code>defer</code> keyword keeps cleanup simple and clean.</p>
+<hr>
+<h2 id="functions-in-structs-zero-cost-syntactic-sugar"><a href="#functions-in-structs-zero-cost-syntactic-sugar">Functions in Structs: Zero cost syntactic-sugar.</a></h2>
+<p>I love this feature very much. I'm not a fan of <span class="accent">OOP</span>, actually I hate <span class="accent">OOP</span> it seems like a bad way to think about programming, first of all, as I said in the introduction, indirections and abstractions are <span class="accent">bad</span>, and object-oriented programming actually promote them, it's not just a bad way to organize code that makes the complicated and over-engineered. it also make the code very slow, as your class should save a <span class="accent">vtable</span> which is basically a lookup table that map your class method calls to their implementations, which actually enables <span class="accent">polymorphism</span>, also this whole everything is <span class="accent">private</span> by default, and this <span class="accent">getter and setter</span> pattern is basically useless and hurt your program performance.</p>
+<p>To state all the flaws in the <span class="accent">OOP Paradigm</span> we will need a seperate post for it. so let's leave it alone for now, but actually there is one thing I really like about it, which is the method calling syntax. it's very elgant actually, many <span class="accent">c</span> programers will disagree, and they are not wrong to do so, as the differnce between the method call in object-oriented langauges and a good designed <span class="accent">c</span> api is very trivial. and it's not worthy of the cost, to put it into action see the difference between those two snipets of <span class="accent">python</span> and <span class="accent">c</span>.</p>
+<pre><code class="language-python">class Circle:
+    def __init__(self, center: float, radius: float):
+        self.center = center
+        self.radius = radius
+
+    def calculate_area(self) -&gt; float:
+        return 3.14 * (self.radius ** 2)
+
+circle = Circle(0, 3)
+
+area = circle.calculate_area()
+</code></pre>
+<pre><code class="language-c">typedef struct Circle {
+    float point;
+    float radius;
+} circle_t;
+
+float circle_calculate_area(circle_t *circle) {
+    return 3.14 * pow(circle-&gt;radius, 2);
+}
+
+int main() {
+    circle_t circle = { .point = 0, .radius = 3 };
+
+    float area = circle_calculate_area(&amp;circle);
+}
+</code></pre>
+<p>If you look at the difference you will find out that the main difference is in the <code>.</code> operator, this is a really great thing in object-oriented langauges, but it's very trivial thing to use <span class="accent">OOP</span> just for it, as it's basically garbage paradigm.</p>
+<p>and here zig comes for the rescue, you actually don't have to choose between performance and neet interfaces, because in <span class="accent">zig</span> you will write it as follows.</p>
+<pre><code class="language-zig">const Circle = struct {
+    point: f32,
+    radius: f32,
+
+    pub fn init(point: f32, radius: f32) Circle {
+        return .{ .point = point, .radius = radius };
+    }
+
+    pub fn calculate_area(self: *Circle) f32 {
+        return 3.14 * self.radius ** 2
+    }
+};
+
+pub fn main() void {
+    const circle = Circle.init(0, 3);
+    const area: f32 = circle.calculate_area();
+}
+</code></pre>
+<p>if you look at the zig version it's actually very similar to the python <span class="accent">OOP</span> version, but actually it have zero-cost, as it actually doesn't save a <span class="accent">vtable</span>, and if you were actually paying attention while reading, I said <span class="accent">struct functions</span> in the section title and not <span class="accent">methods</span> as it's not methods, you call it as methods, but it's actually static functions that we know at compile time or shall I say comptime, so we can basically use the clean <span class="accent">OOP</span> way of writing the api the developer interact with, but without the runtime overhead that comes with it.</p>
+<hr>
+<h2 id="testing-a-great-approach-to-testing"><a href="#testing-a-great-approach-to-testing">Testing: A great approach to testing</a></h2>
+<p>one of the most important practices to create robust software is testing <span class="sidenote" id="sn-0"><a class="sn-marker" href="#sn-0" aria-label="open note">1</a><span class="sn-body"><a class="sn-close" href="#sn-0" aria-label="close note">&#10005;</a><span class="sn-num">1</span>and unfortunality one of the most overseen parts of it</span></span>, and I have yet to found a language that makes writing test more pleasent than <span class="accent">zig</span>, one can argue that testing in <span class="accent">rust</span> and <span class="accent">odin</span> is a great experience, and I actually agree. writing tests in those two languages are actually great. but <span class="accent">zig</span> is in a completely other level, with the <code>test</code> keyword as a first-class citizen, you can simply write implementation for your function, then it's test underneath it directly in the same file easily and compile the tests when running <code>zig build test</code>, not just that, the <span class="accent">zig</span> standard library have great tools for testing, such as implementing an allocators, fuzzing tools for fuzz testing. <span class="sidenote" id="sn-1"><a class="sn-marker" href="#sn-1" aria-label="open note">2</a><span class="sn-body"><a class="sn-close" href="#sn-1" aria-label="close note">&#10005;</a><span class="sn-num">2</span>I think fuzzing can be a great use for modern ai agents. maybe I will run an experiment in the future and make a blog about it</span></span> You also can search for specific tests into your codebase and implement it in isolation using its string identifier <code>zig test file.zig --filter-test &quot;specific test&quot;</code> command, here is an example of a simple test in zig so you can taste it for yourself.</p>
+<pre><code class="language-zig">const std = @import(&quot;std&quot;);
+
+fn add(x: f32, y: f32) f32 {
+    return x + y;
+}
+
+test &quot;adding two float numbers&quot; {
+    const output: f32 = add(10, 10);
+    std.testing.expect(20, output);
+}
+</code></pre>
+<p>it's a very trivial example that I felt embarrassed writting it and it actually reminded me of the typical youtube tutorials I used to see when I was first introduced to programming, where the tutor acutally write the most stupid and basic example possible to use the concept or design the thing and actually in most cases those examples are bad examples because those example are actually <span class="accent">over-engineering</span> the solution, like the above code, I mean wtf you would do with a test for a simple addition function <span class="sidenote" id="sn-2"><a class="sn-marker" href="#sn-2" aria-label="open note">3</a><span class="sn-body"><a class="sn-close" href="#sn-2" aria-label="close note">&#10005;</a><span class="sn-num">3</span>books are the best basically, although they maybe do the same thing</span></span>.</p>
+<hr>
+<h2 id="zig-is-not-perfect"><a href="#zig-is-not-perfect">Zig is Not Perfect</a></h2>
+<p>I've spent this entire post trying to convince you why Zig is great and why you should use it. But it is not perfect. Nothing is.</p>
+<p>For one, I'm definitely not a Zig expert yet, so I'm still discovering its rough edges. But the most obvious challenge right now is that Zig has not reached <code>v1.0.0</code>. With every new release, parts of the standard library API are broken or deprecated. It's a backward-compatibility nightmare. You might pull in a third-party package only for it to fail to compile because the library was written for Zig <code>v0.15.0</code> and you're using <code>v0.16.0</code>, I think the best way to solve this problem is to use the <span class="accent">tigerbeetle</span> approach and just add the compiler version you have as a part of your codebase and compile the project with this compiler <span class="sidenote" id="sn-3"><a class="sn-marker" href="#sn-3" aria-label="open note">4</a><span class="sn-body"><a class="sn-close" href="#sn-3" aria-label="close note">&#10005;</a><span class="sn-num">4</span>Actually I highly recommend you to read the <a href="https://tigerstyle.dev/">Tigerstyle guideline</a> as it has a great insight about building good software, not like the <span class="accent">clean code</span> book which is basically garbage.</span></span>, if you're into game dev, this is like vendoring your third party dependencies.</p>
+<p>On top of that, the community is still relatively small. They are brilliant and incredibly helpful people, but it's a small crowd nonetheless.</p>
+<hr>
+<h2 id="will-i-use-zig-for-large-projects"><a href="#will-i-use-zig-for-large-projects">Will I Use Zig for Large Projects?</a></h2>
+<p>Absolutely. I am currently building a robotics communication framework called <code>glu</code> from scratch. The goal is to make it a lightweight, high-performance alternative to ROS2—a framework that is widely disliked by indie developers and frustrating for labs that need maximum performance without the ROS2 bloat.</p>
+<p>I'm writing <code>glu</code> entirely in Zig. Will the backward-compatibility breaks bite me in the ass? Probably. But the language is so good that it's a risk I'm more than willing to take. I want <code>glu</code> to be a rock-solid, reliable system for real production work.</p>
+
+</div>
+</article>
+</main>
+<script src="../highlight.min.js"></script>
+<script src="../hljs-langs.js"></script>
+<script>hljs.highlightAll();</script>
+<script>
+document.querySelectorAll('.sn-marker').forEach(function(m){
+  m.addEventListener('click', function(e){ e.preventDefault(); m.closest('.sidenote').classList.add('open'); });
+});
+document.querySelectorAll('.sn-close').forEach(function(c){
+  c.addEventListener('click', function(e){ e.preventDefault(); c.closest('.sidenote').classList.remove('open'); });
+});
+</script>
+</body>
+</html>
